@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
 import com.alibasoglu.ciftlikpazarimandroid.core.fragment.ToolbarConfiguration
 import com.alibasoglu.ciftlikpazarimandroid.customviews.CustomToolbar
 import com.alibasoglu.ciftlikpazarimandroid.databinding.ActivityMainBinding
@@ -24,6 +25,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         navController =
             (supportFragmentManager.findFragmentById(binding.navigationHostFragment.id) as NavHostFragment).navController
+        val bottomNavigationView = binding.bottomNavigationView
+        bottomNavigationView.setupWithNavController(navController)
     }
 
     fun navBack() {

@@ -10,4 +10,9 @@
         android:name="com.alibasoglu.ciftlikpazarimandroid.HomeFragment"
         android:label="HomeFragment"
         tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/favoritesFragment"
+        android:name="com.alibasoglu.ciftlikpazarimandroid.FavoritesFragment"
+        android:label="FavoritesFragment"
+        tools:layout="@layout/fragment_favorites" />
 </navigation>
