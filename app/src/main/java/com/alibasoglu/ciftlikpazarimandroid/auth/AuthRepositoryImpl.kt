@@ -1,7 +1,6 @@
 package com.alibasoglu.ciftlikpazarimandroid.auth
 
 import android.content.SharedPreferences
-import android.util.Log
 import retrofit2.HttpException
 
 class AuthRepositoryImpl(
@@ -72,10 +71,8 @@ class AuthRepositoryImpl(
                 AuthResult.Unauthorized()
             }
         } catch (e: HttpException) {
-            Log.d("x-auth response = ", e.toString())
             AuthResult.Unauthorized()
         } catch (e: Exception) {
-            Log.d("x-auth response = ", e.toString())
             AuthResult.UnknownError()
         }
     }
