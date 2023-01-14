@@ -5,4 +5,12 @@
     <string name="add_advert">Yeni İlan</string>
     <string name="messages">Mesajlar</string>
     <string name="profile">Profil</string>
+    <string name="email_address">Email Adresi</string>
+    <string name="password">Şifre</string>
+    <string name="dummy_email">abc@gmail.com</string>
+    <string name="login">Giriş Yap</string>
+    <string name="enter_phone_number">Telefon No (535 500 50 50)</string>
+    <string name="sign_up">Kayıt Ol</string>
+    <string name="name_surname">İsim Soyisim</string>
+    <string name="enter_password">Şifre Giriniz</string>
 </resources>
