@@ -24,6 +24,7 @@ class AuthRepositoryImpl(
                     name = name,
                     phoneNumber = phoneNumber,
                     deviceToken = "device_token-123"
+                    // TODO device token will be implemented after firebase
                 )
             )
             if (result.isSuccessful) {
@@ -32,11 +33,6 @@ class AuthRepositoryImpl(
                 AuthResult.Unauthorized()
             }
         } catch (e: HttpException) {
-            if (e.code() == 400) {
-                Log.d("httpErrorHandle", "Http exception error code 400 occurred")
-            } else {
-                Log.d("httpErrorHandle", "Http exception error code something else occurred")
-            }
             AuthResult.Unauthorized()
         } catch (e: Exception) {
             Log.d("errorHandle", e.toString())
@@ -52,19 +48,17 @@ class AuthRepositoryImpl(
                     password = password
                 )
             )
-            sharedPreferences.edit()
-                .putString("authToken", response.body()?.token)
-                .apply()
-            AuthResult.Authorized()
-        } catch (e: HttpException) {
-            if (e.code() == 400) {
-                Log.d("httpErrorHandle", "Http exception error code 400 occurred")
+            if (response.isSuccessful) {
+                sharedPreferences.edit()
+                    .putString("authToken", response.body()?.token)
+                    .apply()
+                AuthResult.Authorized()
             } else {
-                Log.d("httpErrorHandle", "Http exception error code something else occurred")
+                AuthResult.Unauthorized()
             }
+        } catch (e: HttpException) {
             AuthResult.Unauthorized()
         } catch (e: Exception) {
-            Log.d("errorHandle", "Exception has occurred")
             AuthResult.UnknownError()
         }
     }
@@ -75,14 +69,8 @@ class AuthRepositoryImpl(
             val response = api.authenticate(token)
             AuthResult.Authorized()
         } catch (e: HttpException) {
-            if (e.code() == 400) {
-                Log.d("httpErrorHandle", "Http exception error code 400 occurred")
-            } else {
-                Log.d("httpErrorHandle", "Http exception error code something else occurred")
-            }
             AuthResult.Unauthorized()
         } catch (e: Exception) {
-            Log.d("errorHandle", "Exception has occurred")
             AuthResult.UnknownError()
         }
     }

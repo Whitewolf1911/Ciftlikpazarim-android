@@ -13,4 +13,5 @@
     <string name="sign_up">Kayıt Ol</string>
     <string name="name_surname">İsim Soyisim</string>
     <string name="enter_password">Şifre Giriniz</string>
+    <string name="wrong_uname_pass">Yanlış kullanıcı adı veya şifre</string>
 </resources>

@@ -6,6 +6,8 @@ import com.alibasoglu.ciftlikpazarimandroid.auth.AuthResult
 import com.alibasoglu.ciftlikpazarimandroid.core.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 @HiltViewModel
@@ -13,7 +15,9 @@ class AuthViewModel @Inject constructor(
     private val authRepository: AuthRepository
 ) : BaseViewModel() {
 
-    //private val _signupResultState =
+    private val _authStateFlow = MutableStateFlow<AuthResult<Unit>>(AuthResult.WaitingRequest())
+    val authStateFlow: StateFlow<AuthResult<Unit>>
+        get() = _authStateFlow
 
     suspend fun signUp(
         name: String,
@@ -21,8 +25,7 @@ class AuthViewModel @Inject constructor(
         password: String,
         deviceToken: String,
         phoneNumber: String
-    ): Boolean {
-        var resultBoolean = false
+    ) {
         viewModelScope.launch {
             val result = authRepository.signUp(
                 email = email,
@@ -31,25 +34,27 @@ class AuthViewModel @Inject constructor(
                 phoneNumber = phoneNumber,
                 deviceToken = deviceToken
             )
-            resultBoolean = when (result) {
-                is AuthResult.Authorized -> {
-                    true
-                }
-                is AuthResult.Unauthorized -> {
-                    false
-                }
-                is AuthResult.UnknownError -> {
-                    false
-                }
-
-            }
+            // TODO Error/success handling
         }
-        return resultBoolean
     }
 
     suspend fun signIn(email: String, password: String) {
         viewModelScope.launch {
-            authRepository.signIn(email = email, password = password)
+            val result = authRepository.signIn(email = email, password = password)
+            when (result) {
+                is AuthResult.Authorized -> {
+                    _authStateFlow.value = AuthResult.Authorized()
+                }
+                is AuthResult.Unauthorized -> {
+                    _authStateFlow.value = AuthResult.Unauthorized()
+                }
+                is AuthResult.UnknownError -> {
+                    _authStateFlow.value = AuthResult.UnknownError()
+                }
+                else -> {
+                    _authStateFlow.value = AuthResult.Loading()
+                }
+            }
         }
     }
 
