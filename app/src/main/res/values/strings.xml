@@ -14,4 +14,5 @@
     <string name="name_surname">İsim Soyisim</string>
     <string name="enter_password">Şifre Giriniz</string>
     <string name="wrong_uname_pass">Yanlış kullanıcı adı veya şifre</string>
+    <string name="error_occurred">Bir hata oluştu</string>
 </resources>

@@ -35,7 +35,6 @@ class AuthRepositoryImpl(
         } catch (e: HttpException) {
             AuthResult.Unauthorized()
         } catch (e: Exception) {
-            Log.d("errorHandle", e.toString())
             AuthResult.UnknownError()
         }
     }
@@ -67,7 +66,6 @@ class AuthRepositoryImpl(
         return try {
             val token = sharedPreferences.getString("authToken", null) ?: return AuthResult.Unauthorized()
             val response = api.authenticate(token)
-
             if (response.isSuccessful && response.body() == true) {
                 AuthResult.Authorized()
             } else {

@@ -31,24 +31,8 @@ class AuthFragment : BaseFragment(R.layout.fragment_auth) {
         processAuthState(value)
     }
 
-    private fun processAuthState(value: AuthResult<Unit>) {
-        when (value) {
-            is AuthResult.Authorized -> {
-                nav(AuthFragmentDirections.actionAuthFragmentToHomeFragment())
-            }
-            is AuthResult.Loading -> {
-                binding.progressBar.visibility = View.VISIBLE
-            }
-            is AuthResult.Unauthorized -> {
-                Toast.makeText(context, getString(R.string.wrong_uname_pass), Toast.LENGTH_SHORT).show()
-            }
-            is AuthResult.UnknownError -> {
-                Toast.makeText(context, "Error happened", Toast.LENGTH_SHORT).show()
-            }
-            is AuthResult.WaitingRequest -> {
-                // Do nothing wait the users login request
-            }
-        }
+    private val signUpStateCollector = FlowCollector<AuthResult<Unit>> { value ->
+        processSignUpState(value)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -84,10 +68,47 @@ class AuthFragment : BaseFragment(R.layout.fragment_auth) {
         }
     }
 
+    private fun processSignUpState(value: AuthResult<Unit>) {
+        when (value) {
+            is AuthResult.Authorized -> {
+                Toast.makeText(context, "Hesap oluşturuldu!", Toast.LENGTH_SHORT).show()
+            }
+            is AuthResult.Unauthorized -> {
+                Toast.makeText(context, getString(R.string.error_occurred), Toast.LENGTH_SHORT).show()
+            }
+            is AuthResult.UnknownError -> {
+                Toast.makeText(context, getString(R.string.error_occurred), Toast.LENGTH_SHORT).show()
+            }
+            else -> {}
+        }
+    }
+
+    private fun processAuthState(value: AuthResult<Unit>) {
+        when (value) {
+            is AuthResult.Authorized -> {
+                nav(AuthFragmentDirections.actionAuthFragmentToHomeFragment())
+            }
+            is AuthResult.Loading -> {
+                binding.progressBar.visibility = View.VISIBLE
+            }
+            is AuthResult.Unauthorized -> {
+                Toast.makeText(context, getString(R.string.wrong_uname_pass), Toast.LENGTH_SHORT).show()
+            }
+            is AuthResult.UnknownError -> {
+                Toast.makeText(context, "Error happened", Toast.LENGTH_SHORT).show()
+            }
+            is AuthResult.WaitingRequest -> {
+                // Do nothing wait the users login request
+            }
+        }
+    }
+
     private fun initObservers() {
         viewLifecycleOwner.observe {
             authViewModel.authStateFlow.collect(authStateCollector)
         }
+        viewLifecycleOwner.observe {
+            authViewModel.signUpStateFlow.collect(signUpStateCollector)
+        }
     }
-
 }

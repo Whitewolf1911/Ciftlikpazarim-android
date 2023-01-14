@@ -19,6 +19,10 @@ class AuthViewModel @Inject constructor(
     val authStateFlow: StateFlow<AuthResult<Unit>>
         get() = _authStateFlow
 
+    private val _signUpStateFlow = MutableStateFlow<AuthResult<Unit>>(AuthResult.WaitingRequest())
+    val signUpStateFlow: StateFlow<AuthResult<Unit>>
+        get() = _signUpStateFlow
+
     init {
         viewModelScope.launch {
             authenticate()
@@ -40,7 +44,20 @@ class AuthViewModel @Inject constructor(
                 phoneNumber = phoneNumber,
                 deviceToken = deviceToken
             )
-            // TODO Error/success handling
+            when (result) {
+                is AuthResult.Authorized -> {
+                    _signUpStateFlow.value = AuthResult.Authorized()
+                }
+                is AuthResult.Unauthorized -> {
+                    _signUpStateFlow.value = AuthResult.Unauthorized()
+                }
+                is AuthResult.UnknownError -> {
+                    _signUpStateFlow.value = AuthResult.UnknownError()
+                }
+                else -> {
+                    _authStateFlow.value = AuthResult.Loading()
+                }
+            }
         }
     }
 
