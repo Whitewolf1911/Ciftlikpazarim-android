@@ -18,8 +18,8 @@ interface AuthApi {
         @Body request: SigninRequest
     ): Response<User>
 
-    @POST
+    @POST("tokenIsValid")
     suspend fun authenticate(
         @Header("x-auth-token") authToken: String
-    )
+    ): Response<Boolean>
 }

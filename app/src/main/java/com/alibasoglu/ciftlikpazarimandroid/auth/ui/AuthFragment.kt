@@ -45,7 +45,7 @@ class AuthFragment : BaseFragment(R.layout.fragment_auth) {
             is AuthResult.UnknownError -> {
                 Toast.makeText(context, "Error happened", Toast.LENGTH_SHORT).show()
             }
-            is AuthResult.WaitingRequest ->{
+            is AuthResult.WaitingRequest -> {
                 // Do nothing wait the users login request
             }
         }

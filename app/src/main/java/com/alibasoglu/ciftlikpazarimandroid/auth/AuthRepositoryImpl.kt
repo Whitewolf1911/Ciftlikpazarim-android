@@ -67,10 +67,17 @@ class AuthRepositoryImpl(
         return try {
             val token = sharedPreferences.getString("authToken", null) ?: return AuthResult.Unauthorized()
             val response = api.authenticate(token)
-            AuthResult.Authorized()
+
+            if (response.isSuccessful && response.body() == true) {
+                AuthResult.Authorized()
+            } else {
+                AuthResult.Unauthorized()
+            }
         } catch (e: HttpException) {
+            Log.d("x-auth response = ", e.toString())
             AuthResult.Unauthorized()
         } catch (e: Exception) {
+            Log.d("x-auth response = ", e.toString())
             AuthResult.UnknownError()
         }
     }

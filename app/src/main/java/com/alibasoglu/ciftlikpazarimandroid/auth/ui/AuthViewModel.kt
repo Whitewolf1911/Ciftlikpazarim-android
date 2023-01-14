@@ -19,6 +19,12 @@ class AuthViewModel @Inject constructor(
     val authStateFlow: StateFlow<AuthResult<Unit>>
         get() = _authStateFlow
 
+    init {
+        viewModelScope.launch {
+            authenticate()
+        }
+    }
+
     suspend fun signUp(
         name: String,
         email: String,
@@ -55,6 +61,13 @@ class AuthViewModel @Inject constructor(
                     _authStateFlow.value = AuthResult.Loading()
                 }
             }
+        }
+    }
+
+    private suspend fun authenticate() {
+        val result = authRepository.authenticate()
+        if (result is AuthResult.Authorized) {
+            _authStateFlow.value = AuthResult.Authorized()
         }
     }
 
