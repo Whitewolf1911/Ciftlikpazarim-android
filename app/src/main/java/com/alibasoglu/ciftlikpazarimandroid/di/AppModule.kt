@@ -24,7 +24,7 @@ object AppModule {
     @Singleton
     fun provideAuthApi(): AuthApi {
         return Retrofit.Builder()
-            .baseUrl("http://192.168.0.29:3000/")
+            .baseUrl(BASE_URL)
             .addConverterFactory(MoshiConverterFactory.create())
             .build()
             .create()
@@ -42,5 +42,5 @@ object AppModule {
         return AuthRepositoryImpl(api, prefs)
     }
 
-
+    const val BASE_URL = "http://192.168.0.29:3000/"
 }
