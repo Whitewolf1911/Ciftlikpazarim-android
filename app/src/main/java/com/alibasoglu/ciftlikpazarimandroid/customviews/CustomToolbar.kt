@@ -25,7 +25,7 @@ class CustomToolbar @JvmOverloads constructor(
             initTitle(titleResId)
             configureStartButton(startIconResId, startIconClick)
         }
-        initBackgroundColor(R.color.purple_500)
+        initBackgroundColor(R.color.green_primary)
         isVisible = true
     }
 

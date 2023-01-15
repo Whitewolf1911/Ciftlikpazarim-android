@@ -23,15 +23,15 @@
         android:id="@+id/toolbarTitleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="56dp"
+        android:layout_marginHorizontal="8dp"
         android:ellipsize="end"
         android:gravity="center"
         android:maxLines="1"
         android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        android:textColor="@color/white"
         app:layout_constrainedWidth="true"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/startImageButton"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="@tools:sample/lorem[1]" />
 

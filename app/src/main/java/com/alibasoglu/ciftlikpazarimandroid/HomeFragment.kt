@@ -5,6 +5,7 @@ import android.view.View
 import androidx.core.view.isVisible
 import com.alibasoglu.ciftlikpazarimandroid.core.fragment.BaseFragment
 import com.alibasoglu.ciftlikpazarimandroid.core.fragment.FragmentConfiguration
+import com.alibasoglu.ciftlikpazarimandroid.core.fragment.ToolbarConfiguration
 import com.alibasoglu.ciftlikpazarimandroid.databinding.FragmentHomeBinding
 import com.alibasoglu.ciftlikpazarimandroid.utils.viewbinding.viewBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -13,7 +14,9 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class HomeFragment : BaseFragment(R.layout.fragment_home) {
 
-    override val fragmentConfiguration = FragmentConfiguration()
+    private val toolbarConfiguration = ToolbarConfiguration(R.string.app_name)
+
+    override val fragmentConfiguration = FragmentConfiguration(toolbarConfiguration)
 
     private val binding by viewBinding(FragmentHomeBinding::bind)
 
