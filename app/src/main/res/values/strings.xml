@@ -21,4 +21,11 @@
     <string name="farming">Tarım</string>
     <string name="coop_animals">Kümes Hayvanları</string>
     <string name="cows">Büyükbaş Hayvanlar</string>
+    <string name="select_photo">Fotoğraf Seçiniz</string>
+    <string name="advert_title">İlan Başlığı</string>
+    <string name="advert_explanation">İlan Açıklaması</string>
+    <string name="price">Fiyat (TL)</string>
+    <string name="advert_add">İlan Ekle</string>
+    <string name="select_city">Şehir Seçiniz</string>
+    <string name="select_category">Kategori Seçiniz</string>
 </resources>
