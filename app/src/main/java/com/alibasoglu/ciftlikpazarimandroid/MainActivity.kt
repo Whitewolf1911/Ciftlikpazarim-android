@@ -25,8 +25,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         navController =
             (supportFragmentManager.findFragmentById(binding.navigationHostFragment.id) as NavHostFragment).navController
-        val bottomNavigationView = binding.bottomNavigationView
-        bottomNavigationView.setupWithNavController(navController)
+        binding.bottomNavigationView.apply {
+            setupWithNavController(navController)
+            setOnItemReselectedListener {} // To prevent reselect item and resetting selected fragment
+        }
     }
 
     fun navBack() {
