@@ -15,4 +15,10 @@
     <string name="enter_password">Şifre Giriniz</string>
     <string name="wrong_uname_pass">Yanlış kullanıcı adı veya şifre</string>
     <string name="error_occurred">Bir hata oluştu</string>
+    <string name="small_cattle">Küçükbaş Hayvanlar</string>
+    <string name="bee_production">Arıcılık</string>
+    <string name="machine">Makine</string>
+    <string name="farming">Tarım</string>
+    <string name="coop_animals">Kümes Hayvanları</string>
+    <string name="cows">Büyükbaş Hayvanlar</string>
 </resources>
