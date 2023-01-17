@@ -1,6 +1,6 @@
 package com.alibasoglu.ciftlikpazarimandroid.adverts.ui
 
-import android.net.Uri
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.graphics.drawable.toBitmap
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -17,6 +18,8 @@ import com.alibasoglu.ciftlikpazarimandroid.core.fragment.FragmentConfiguration
 import com.alibasoglu.ciftlikpazarimandroid.core.fragment.ToolbarConfiguration
 import com.alibasoglu.ciftlikpazarimandroid.databinding.FragmentNewAdvertBinding
 import com.alibasoglu.ciftlikpazarimandroid.utils.Resource
+import com.alibasoglu.ciftlikpazarimandroid.utils.decodeBase64Image
+import com.alibasoglu.ciftlikpazarimandroid.utils.encodeImageToBase64
 import com.alibasoglu.ciftlikpazarimandroid.utils.lifecycle.observe
 import com.alibasoglu.ciftlikpazarimandroid.utils.viewbinding.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -40,7 +43,7 @@ class NewAdvertFragment : BaseFragment(R.layout.fragment_new_advert) {
 
     private lateinit var pickMedia: ActivityResultLauncher<PickVisualMediaRequest>
 
-    private var selectedImageUri: Uri? = null
+    private var base64Image: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,10 +75,20 @@ class NewAdvertFragment : BaseFragment(R.layout.fragment_new_advert) {
             // Callback is invoked after the user selects a media item or closes the
             // photo picker.
             if (uri != null) {
-                Log.d("PhotoPicker", "Selected URI: $uri")
-                binding.advertImageView.setImageURI(uri)
-                selectedImageUri = uri
-                binding.pickPhotoTextView.isVisible = false
+                try {
+                    binding.advertImageView.setImageURI(uri)
+                    val drawableImg = binding.advertImageView.drawable
+
+                    val bitmapImg = drawableImg.toBitmap()
+                    base64Image = encodeImageToBase64(bitmapImg, Bitmap.CompressFormat.JPEG, 1)
+
+                    val decodedBitmap = decodeBase64Image(base64Image)
+                    binding.advertImageView.setImageBitmap(decodedBitmap)
+
+                    binding.pickPhotoTextView.isVisible = false
+                } catch (e: Exception) {
+                    Log.d("exception", "Exception occurred")
+                }
             } else {
                 Log.d("PhotoPicker", "No media selected")
             }
@@ -118,7 +131,7 @@ class NewAdvertFragment : BaseFragment(R.layout.fragment_new_advert) {
             newAdvertViewModel.addNewAdvert(
                 name = advertTitleEditText.text.toString(),
                 description = advertDescriptionEditText.text.toString(),
-                images = listOf("base64 photo"),
+                images = listOf(base64Image.toString()),
                 price = price,
                 category = "Büyükbaş Hayvanlar",
                 city = "Denizli",
