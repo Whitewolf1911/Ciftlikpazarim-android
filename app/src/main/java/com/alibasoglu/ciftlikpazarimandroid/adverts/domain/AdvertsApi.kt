@@ -8,7 +8,7 @@ import retrofit2.http.POST
 
 interface AdvertsApi {
 
-    @POST("/user/add-advert")
+    @POST("user/add-advert")
     suspend fun addNewAdvert(
         @Body advert: Advert, @Header("x-auth-token") authToken: String
     ): Response<ResponseBody>
