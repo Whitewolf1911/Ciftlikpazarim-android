@@ -1,7 +1,6 @@
 package com.alibasoglu.ciftlikpazarimandroid.adverts.data
 
 import android.content.SharedPreferences
-import android.util.Log
 import com.alibasoglu.ciftlikpazarimandroid.adverts.domain.Advert
 import com.alibasoglu.ciftlikpazarimandroid.adverts.domain.AdvertsApi
 import com.alibasoglu.ciftlikpazarimandroid.adverts.domain.AdvertsRepository
@@ -40,11 +39,10 @@ class AdvertsRepositoryImpl(
             if (response.isSuccessful) {
                 return Resource.Success(data = null)
             } else {
-                return Resource.Error(message = "Error occurred. Check your token")
+                return Resource.Error(message = "Hata oluştu.")
             }
 
         } catch (e: Exception) {
-            Log.d("DUBUGUUG", e.toString())
             Resource.Error(e.toString())
         }
     }
