@@ -8,7 +8,6 @@ import com.alibasoglu.ciftlikpazarimandroid.utils.list.BaseDiffUtil
 class CategoryAdvertsAdapter : PagingDataAdapter<Advert, AdvertItemViewHolder>(BaseDiffUtil()) {
 
     override fun onBindViewHolder(holder: AdvertItemViewHolder, position: Int) {
-
         getItem(position)?.let { advert ->
             holder.bind(advert)
         }

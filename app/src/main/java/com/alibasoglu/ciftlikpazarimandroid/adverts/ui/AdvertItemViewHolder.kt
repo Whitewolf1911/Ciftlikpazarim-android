@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.alibasoglu.ciftlikpazarimandroid.adverts.domain.Advert
 import com.alibasoglu.ciftlikpazarimandroid.databinding.ItemAdvertBinding
+import com.alibasoglu.ciftlikpazarimandroid.utils.decodeBase64Image
 
 class AdvertItemViewHolder(
     private val binding: ItemAdvertBinding
@@ -13,11 +14,16 @@ class AdvertItemViewHolder(
     fun bind(advert: Advert) {
         val name = advert.name
         val price = "${advert.price} TL"
+        val image = decodeBase64Image(advert.images[0])
 
         with(binding) {
+            root.setOnClickListener {
+                // TODO implement interface for click item
+            }
             advertNameTextView.text = name
             cityTextView.text = advert.city
             priceTextView.text = price
+            advertImageView.setImageBitmap(image)
         }
     }
 
