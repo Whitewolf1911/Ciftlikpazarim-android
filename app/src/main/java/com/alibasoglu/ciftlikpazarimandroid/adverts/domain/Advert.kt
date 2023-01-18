@@ -1,7 +1,7 @@
 package com.alibasoglu.ciftlikpazarimandroid.adverts.domain
 
 data class Advert(
-    val id: String? = null,
+    val _id: String? = null,
     val name: String,
     val description: String,
     val userID: String,

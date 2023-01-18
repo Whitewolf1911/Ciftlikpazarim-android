@@ -1,5 +1,6 @@
 package com.alibasoglu.ciftlikpazarimandroid.adverts.domain
 
+import androidx.paging.Pager
 import com.alibasoglu.ciftlikpazarimandroid.utils.Resource
 
 interface AdvertsRepository {
@@ -13,5 +14,7 @@ interface AdvertsRepository {
         category: String,
         city: String,
     ): Resource<String>
+
+    fun getCategoryAdvertsPager(category: String): Pager<Int, Advert>
 
 }

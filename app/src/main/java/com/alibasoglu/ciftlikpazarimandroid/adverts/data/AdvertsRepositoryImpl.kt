@@ -1,6 +1,9 @@
 package com.alibasoglu.ciftlikpazarimandroid.adverts.data
 
 import android.content.SharedPreferences
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import com.alibasoglu.ciftlikpazarimandroid.adverts.data.pagingsource.AdvertsPagingSource
 import com.alibasoglu.ciftlikpazarimandroid.adverts.domain.Advert
 import com.alibasoglu.ciftlikpazarimandroid.adverts.domain.AdvertsRepository
 import com.alibasoglu.ciftlikpazarimandroid.utils.Resource
@@ -45,4 +48,13 @@ class AdvertsRepositoryImpl(
             Resource.Error(e.toString())
         }
     }
+
+    override fun getCategoryAdvertsPager(category: String) = Pager(
+        config = PagingConfig(
+            pageSize = AdvertsPagingSource.ADVERTS_PAGE_SIZE,
+            initialLoadSize = AdvertsPagingSource.ADVERTS_PAGE_SIZE,
+            enablePlaceholders = false,
+        ),
+        pagingSourceFactory = { AdvertsPagingSource(advertsApi = api, category = category) }
+    )
 }
