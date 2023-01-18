@@ -12,9 +12,12 @@ class AdvertItemViewHolder(
 
     fun bind(advert: Advert) {
         val name = advert.name
+        val price = "${advert.price} TL"
 
         with(binding) {
             advertNameTextView.text = name
+            cityTextView.text = advert.city
+            priceTextView.text = price
         }
     }
 

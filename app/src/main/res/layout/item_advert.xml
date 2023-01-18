@@ -8,17 +8,47 @@
     android:background="@drawable/bg_advert_item"
     android:padding="16dp">
 
+    <ImageView
+        android:id="@+id/advertImageView"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@tools:sample/avatars" />
+
     <TextView
         android:id="@+id/advertNameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="24dp"
+        android:ellipsize="end"
+        android:singleLine="true"
         android:textColor="@color/black"
-        android:textSize="@dimen/text_size_20"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@+id/advertImageView"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Sahibinden inek" />
+        app:layout_constraintVertical_bias="0.505"
+        tools:text="Denizliden 24 adet sementel cins inek" />
+
+    <TextView
+        android:id="@+id/priceTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/advertNameTextView"
+        app:layout_constraintTop_toBottomOf="@+id/advertNameTextView"
+        tools:text="999999 TL" />
+
+    <TextView
+        android:id="@+id/cityTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="Kahramanmaraş" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,6 +2,7 @@ package com.alibasoglu.ciftlikpazarimandroid.adverts.ui
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import com.alibasoglu.ciftlikpazarimandroid.R
 import com.alibasoglu.ciftlikpazarimandroid.core.fragment.BaseFragment
@@ -10,6 +11,7 @@ import com.alibasoglu.ciftlikpazarimandroid.core.fragment.ToolbarConfiguration
 import com.alibasoglu.ciftlikpazarimandroid.databinding.FragmentCategoryAdvertsBinding
 import com.alibasoglu.ciftlikpazarimandroid.utils.lifecycle.observe
 import com.alibasoglu.ciftlikpazarimandroid.utils.viewbinding.viewBinding
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 
@@ -36,6 +38,7 @@ class CategoryAdvertsFragment : BaseFragment(R.layout.fragment_category_adverts)
 
 
     private fun initUi() {
+        activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)?.isVisible = false
         getToolbar()?.setTitle(categoryAdvertsViewModel.getCategoryName())
         binding.advertsRecyclerView.adapter = categoryAdvertsAdapter
     }
