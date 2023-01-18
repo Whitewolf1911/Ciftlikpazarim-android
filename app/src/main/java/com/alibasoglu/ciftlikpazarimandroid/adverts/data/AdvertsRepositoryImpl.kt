@@ -2,7 +2,6 @@ package com.alibasoglu.ciftlikpazarimandroid.adverts.data
 
 import android.content.SharedPreferences
 import com.alibasoglu.ciftlikpazarimandroid.adverts.domain.Advert
-import com.alibasoglu.ciftlikpazarimandroid.adverts.domain.AdvertsApi
 import com.alibasoglu.ciftlikpazarimandroid.adverts.domain.AdvertsRepository
 import com.alibasoglu.ciftlikpazarimandroid.utils.Resource
 

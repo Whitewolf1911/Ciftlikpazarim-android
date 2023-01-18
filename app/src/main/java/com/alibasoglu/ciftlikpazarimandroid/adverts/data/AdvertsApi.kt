@@ -1,5 +1,6 @@
-package com.alibasoglu.ciftlikpazarimandroid.adverts.domain
+package com.alibasoglu.ciftlikpazarimandroid.adverts.data
 
+import com.alibasoglu.ciftlikpazarimandroid.adverts.domain.Advert
 import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.Body

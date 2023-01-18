@@ -3,9 +3,9 @@ package com.alibasoglu.ciftlikpazarimandroid.di
 import android.app.Application
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
-import com.alibasoglu.ciftlikpazarimandroid.auth.AuthApi
-import com.alibasoglu.ciftlikpazarimandroid.auth.AuthRepository
-import com.alibasoglu.ciftlikpazarimandroid.auth.AuthRepositoryImpl
+import com.alibasoglu.ciftlikpazarimandroid.auth.data.AuthApi
+import com.alibasoglu.ciftlikpazarimandroid.auth.domain.AuthRepository
+import com.alibasoglu.ciftlikpazarimandroid.auth.data.AuthRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

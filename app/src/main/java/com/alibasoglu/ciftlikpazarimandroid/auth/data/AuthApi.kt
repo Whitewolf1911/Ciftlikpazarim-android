@@ -1,6 +1,8 @@
-package com.alibasoglu.ciftlikpazarimandroid.auth
+package com.alibasoglu.ciftlikpazarimandroid.auth.data
 
 import com.alibasoglu.ciftlikpazarimandroid.User
+import com.alibasoglu.ciftlikpazarimandroid.auth.SigninRequest
+import com.alibasoglu.ciftlikpazarimandroid.auth.SignupRequest
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.Header

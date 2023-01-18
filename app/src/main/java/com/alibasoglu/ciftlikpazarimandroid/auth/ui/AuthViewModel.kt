@@ -1,7 +1,7 @@
 package com.alibasoglu.ciftlikpazarimandroid.auth.ui
 
 import androidx.lifecycle.viewModelScope
-import com.alibasoglu.ciftlikpazarimandroid.auth.AuthRepository
+import com.alibasoglu.ciftlikpazarimandroid.auth.domain.AuthRepository
 import com.alibasoglu.ciftlikpazarimandroid.auth.AuthResult
 import com.alibasoglu.ciftlikpazarimandroid.core.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel

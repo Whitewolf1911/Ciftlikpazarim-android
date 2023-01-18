@@ -1,4 +1,6 @@
-package com.alibasoglu.ciftlikpazarimandroid.auth
+package com.alibasoglu.ciftlikpazarimandroid.auth.domain
+
+import com.alibasoglu.ciftlikpazarimandroid.auth.AuthResult
 
 interface AuthRepository {
 
