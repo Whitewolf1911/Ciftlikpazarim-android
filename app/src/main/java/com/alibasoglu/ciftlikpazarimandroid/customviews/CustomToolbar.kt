@@ -36,7 +36,7 @@ class CustomToolbar @JvmOverloads constructor(
         }
     }
 
-    private fun setTitle(title: String?) {
+    fun setTitle(title: String?) {
         with(binding.toolbarTitleTextView) {
             isVisible = title != null
             text = title.orEmpty()

@@ -30,7 +30,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
         with(binding) {
             // TODO implement here
             cowButton.setOnClickListener {
-
+                nav(HomeFragmentDirections.actionHomeFragmentToCategoryAdvertsFragment("Büyükbaş Hayvanlar"))
             }
             sheepButton.setOnClickListener {
 
