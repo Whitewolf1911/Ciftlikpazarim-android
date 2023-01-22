@@ -18,7 +18,7 @@ class CategoryAdvertsViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle
 ) : BaseViewModel() {
 
-    private val category = savedStateHandle.getOrThrow<String>("category")
+    private val category = savedStateHandle.getOrThrow<String>(CATEGORY_KEY)
 
     fun getCategoryName(): String {
         return category
@@ -28,5 +28,9 @@ class CategoryAdvertsViewModel @Inject constructor(
         return advertsRepository.getCategoryAdvertsPager(category = category)
             .flow
             .cachedIn(viewModelScope)
+    }
+
+    companion object {
+        const val CATEGORY_KEY = "category"
     }
 }

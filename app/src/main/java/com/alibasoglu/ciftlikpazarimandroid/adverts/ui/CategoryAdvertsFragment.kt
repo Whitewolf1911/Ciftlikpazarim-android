@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.RecyclerView
 import com.alibasoglu.ciftlikpazarimandroid.R
 import com.alibasoglu.ciftlikpazarimandroid.core.fragment.BaseFragment
 import com.alibasoglu.ciftlikpazarimandroid.core.fragment.FragmentConfiguration
@@ -40,7 +41,17 @@ class CategoryAdvertsFragment : BaseFragment(R.layout.fragment_category_adverts)
     private fun initUi() {
         activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)?.isVisible = false
         getToolbar()?.setTitle(categoryAdvertsViewModel.getCategoryName())
-        binding.advertsRecyclerView.adapter = categoryAdvertsAdapter
+        with(binding) {
+            advertsRecyclerView.adapter = categoryAdvertsAdapter
+            val listener = object : RecyclerView.OnChildAttachStateChangeListener {
+                override fun onChildViewAttachedToWindow(view: View) {
+                    emptyStatusTextView.visibility = View.GONE
+                }
+
+                override fun onChildViewDetachedFromWindow(view: View) {}
+            }
+            advertsRecyclerView.addOnChildAttachStateChangeListener(listener)
+        }
     }
 
     private fun getCategoryAdverts() {
@@ -50,6 +61,5 @@ class CategoryAdvertsFragment : BaseFragment(R.layout.fragment_category_adverts)
             }
         }
     }
-
 
 }

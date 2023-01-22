@@ -28,31 +28,29 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
     private fun initUi() {
         activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)?.isVisible = true
         with(binding) {
-            // TODO implement here
             cowButton.setOnClickListener {
-                nav(HomeFragmentDirections.actionHomeFragmentToCategoryAdvertsFragment("Büyükbaş Hayvanlar"))
+                navToCategoryAdvertsFragment(R.string.cows)
             }
             sheepButton.setOnClickListener {
-
+                navToCategoryAdvertsFragment(R.string.small_cattle)
             }
             chickenButton.setOnClickListener {
-
+                navToCategoryAdvertsFragment(R.string.coop_animals)
             }
             beeButton.setOnClickListener {
-
+                navToCategoryAdvertsFragment(R.string.bee_production)
             }
             farmButton.setOnClickListener {
-
+                navToCategoryAdvertsFragment(R.string.farming)
             }
             machineButton.setOnClickListener {
-
+                navToCategoryAdvertsFragment(R.string.machine)
             }
         }
-
     }
 
-    private fun navToCategoryAdvertsFragment(categorySelected: String) {
-
+    private fun navToCategoryAdvertsFragment(categorySelectedRes: Int) {
+        nav(HomeFragmentDirections.actionHomeFragmentToCategoryAdvertsFragment(getString(categorySelectedRes)))
     }
 
 }
