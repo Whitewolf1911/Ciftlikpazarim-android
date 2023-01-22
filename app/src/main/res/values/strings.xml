@@ -30,6 +30,15 @@
     <string name="select_category">Kategori Seçiniz</string>
 
 
+    <string-array name="categories">
+        <item>Büyükbaş Hayvanlar</item>
+        <item>Küçükbaş Hayvanlar</item>
+        <item>Kümes Hayvanları</item>
+        <item>Arıcılık</item>
+        <item>Tarım</item>
+        <item>Makine</item>
+    </string-array>
+
     <string-array name="cities">
         <item>Adana</item>
         <item>Adıyaman</item>

@@ -68,8 +68,7 @@ class NewAdvertFragment : BaseFragment(R.layout.fragment_new_advert) {
                     addNewAdvert()
                 }
             }
-
-            // Init spinners
+            // Init city spinner
             ArrayAdapter.createFromResource(
                 requireContext(),
                 R.array.cities,
@@ -77,6 +76,16 @@ class NewAdvertFragment : BaseFragment(R.layout.fragment_new_advert) {
             ).also { adapter ->
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 citySpinner.adapter = adapter
+            }
+
+            // Init category spinner
+            ArrayAdapter.createFromResource(
+                requireContext(),
+                R.array.categories,
+                android.R.layout.simple_spinner_item
+            ).also { adapter ->
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                categorySpinner.adapter = adapter
             }
 
         }
@@ -145,7 +154,7 @@ class NewAdvertFragment : BaseFragment(R.layout.fragment_new_advert) {
                 description = advertDescriptionEditText.text.toString(),
                 images = listOf(base64Image.toString()),
                 price = price,
-                category = "Büyükbaş Hayvanlar",
+                category = categorySpinner.selectedItem as String,
                 city = citySpinner.selectedItem as String,
                 userId = "userid123"
             )

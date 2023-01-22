@@ -97,8 +97,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/select_category"
-                android:textSize="@dimen/text_size_20"
-                app:layout_constraintEnd_toStartOf="@id/categorySpinner"
+                android:textColor="@color/black"
+                android:textSize="18sp"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -107,25 +107,25 @@
                 android:id="@+id/categorySpinner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textAlignment="center"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@id/selectCategoryTextView"
                 app:layout_constraintTop_toTopOf="@+id/selectCategoryTextView" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp">
+            android:padding="24dp">
 
             <TextView
                 android:id="@+id/selectCityTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/select_city"
-                android:textSize="@dimen/text_size_20"
-                app:layout_constraintEnd_toStartOf="@id/citySpinner"
+                android:textColor="@color/black"
+                android:textSize="18sp"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -134,10 +134,10 @@
                 android:id="@+id/citySpinner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textAlignment="center"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@id/selectCityTextView"
                 app:layout_constraintTop_toTopOf="@+id/selectCityTextView" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
