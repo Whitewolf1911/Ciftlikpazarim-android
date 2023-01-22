@@ -8,7 +8,8 @@ import com.alibasoglu.ciftlikpazarimandroid.databinding.ItemAdvertBinding
 import com.alibasoglu.ciftlikpazarimandroid.utils.decodeBase64Image
 
 class AdvertItemViewHolder(
-    private val binding: ItemAdvertBinding
+    private val binding: ItemAdvertBinding,
+    private val listener: AdvertClickListener
 ) : ViewHolder(binding.root) {
 
     fun bind(advert: Advert) {
@@ -18,7 +19,7 @@ class AdvertItemViewHolder(
 
         with(binding) {
             root.setOnClickListener {
-                // TODO implement interface for click item
+                listener.onClick(advert)
             }
             advertNameTextView.text = name
             cityTextView.text = advert.city
@@ -27,10 +28,15 @@ class AdvertItemViewHolder(
         }
     }
 
+    fun interface AdvertClickListener {
+        fun onClick(advert: Advert)
+    }
+
     companion object {
-        fun create(parent: ViewGroup): AdvertItemViewHolder {
+        fun create(parent: ViewGroup, listener: AdvertClickListener): AdvertItemViewHolder {
             return AdvertItemViewHolder(
-                ItemAdvertBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                ItemAdvertBinding.inflate(LayoutInflater.from(parent.context), parent, false),
+                listener
             )
         }
     }

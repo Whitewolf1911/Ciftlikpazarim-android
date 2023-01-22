@@ -9,11 +9,10 @@
         android:id="@+id/homeFragment"
         android:name="com.alibasoglu.ciftlikpazarimandroid.HomeFragment"
         android:label="HomeFragment"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_categoryAdvertsFragment"
-            app:destination="@id/categoryAdvertsFragment"
-            />
+            app:destination="@id/categoryAdvertsFragment" />
     </fragment>
     <fragment
         android:id="@+id/favoritesFragment"
@@ -38,11 +37,23 @@
         tools:layout="@layout/fragment_new_advert" />
     <fragment
         android:id="@+id/categoryAdvertsFragment"
-        tools:layout="@layout/fragment_category_adverts"
         android:name="com.alibasoglu.ciftlikpazarimandroid.adverts.ui.CategoryAdvertsFragment"
-        android:label="CategoryAdvertsFragment" >
+        android:label="CategoryAdvertsFragment"
+        tools:layout="@layout/fragment_category_adverts">
         <argument
             android:name="category"
             app:argType="string" />
+        <action
+            android:id="@+id/action_categoryAdvertsFragment_to_advertDetailsFragment"
+            app:destination="@id/advertDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/advertDetailsFragment"
+        android:name="com.alibasoglu.ciftlikpazarimandroid.adverts.ui.AdvertDetailsFragment"
+        android:label="AdvertDetailsFragment"
+        tools:layout="@layout/fragment_advert_details">
+        <argument
+            android:name="advert"
+            app:argType="com.alibasoglu.ciftlikpazarimandroid.adverts.domain.Advert" />
     </fragment>
 </navigation>

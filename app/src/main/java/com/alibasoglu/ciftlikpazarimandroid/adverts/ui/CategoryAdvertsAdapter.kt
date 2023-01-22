@@ -5,7 +5,9 @@ import androidx.paging.PagingDataAdapter
 import com.alibasoglu.ciftlikpazarimandroid.adverts.domain.Advert
 import com.alibasoglu.ciftlikpazarimandroid.utils.list.BaseDiffUtil
 
-class CategoryAdvertsAdapter : PagingDataAdapter<Advert, AdvertItemViewHolder>(BaseDiffUtil()) {
+class CategoryAdvertsAdapter(
+    private val listener: CategoryAdvertsAdapterListener
+) : PagingDataAdapter<Advert, AdvertItemViewHolder>(BaseDiffUtil()) {
 
     override fun onBindViewHolder(holder: AdvertItemViewHolder, position: Int) {
         getItem(position)?.let { advert ->
@@ -13,7 +15,15 @@ class CategoryAdvertsAdapter : PagingDataAdapter<Advert, AdvertItemViewHolder>(B
         }
     }
 
+    private val advertClickItem = AdvertItemViewHolder.AdvertClickListener { advertItem ->
+        listener.onAdvertClick(advertItem)
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AdvertItemViewHolder {
-        return AdvertItemViewHolder.create(parent)
+        return AdvertItemViewHolder.create(parent, advertClickItem)
+    }
+
+    interface CategoryAdvertsAdapterListener {
+        fun onAdvertClick(advert: Advert)
     }
 }

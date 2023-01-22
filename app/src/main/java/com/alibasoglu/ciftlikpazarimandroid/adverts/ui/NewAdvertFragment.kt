@@ -129,7 +129,7 @@ class NewAdvertFragment : BaseFragment(R.layout.fragment_new_advert) {
     private fun processNewAdvertState(value: Resource<Unit>) {
         when (value) {
             is Resource.Success -> {
-                Toast.makeText(context, "İlan ekleme başarılı", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "İlanınız onaylandıktan sonra yayınlanacaktır.", Toast.LENGTH_SHORT).show()
             }
             is Resource.Error -> {
                 Toast.makeText(context, value.message, Toast.LENGTH_SHORT).show()

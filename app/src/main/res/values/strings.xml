@@ -29,6 +29,7 @@
     <string name="select_city">Şehir Seçiniz</string>
     <string name="select_category">Kategori Seçiniz</string>
     <string name="adverts_not_found">Seçtiğiniz kategoride ilan bulunamadı</string>
+    <string name="advert_details">İlan Detayları</string>
 
 
     <string-array name="categories">

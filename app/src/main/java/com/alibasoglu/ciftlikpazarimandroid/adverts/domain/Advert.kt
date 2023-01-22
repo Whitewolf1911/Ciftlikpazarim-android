@@ -1,7 +1,10 @@
 package com.alibasoglu.ciftlikpazarimandroid.adverts.domain
 
+import android.os.Parcelable
 import com.alibasoglu.ciftlikpazarimandroid.utils.list.RecyclerListItem
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class Advert(
     val _id: String? = null,
     val name: String,
@@ -12,7 +15,7 @@ data class Advert(
     val category: String,
     val city: String,
     val isPublished: Boolean? = null
-) : RecyclerListItem {
+) : RecyclerListItem, Parcelable {
     override fun areItemsTheSame(other: RecyclerListItem): Boolean {
         return other is Advert && other._id == _id
     }

@@ -6,6 +6,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.alibasoglu.ciftlikpazarimandroid.R
+import com.alibasoglu.ciftlikpazarimandroid.adverts.domain.Advert
 import com.alibasoglu.ciftlikpazarimandroid.core.fragment.BaseFragment
 import com.alibasoglu.ciftlikpazarimandroid.core.fragment.FragmentConfiguration
 import com.alibasoglu.ciftlikpazarimandroid.core.fragment.ToolbarConfiguration
@@ -27,7 +28,13 @@ class CategoryAdvertsFragment : BaseFragment(R.layout.fragment_category_adverts)
 
     private val categoryAdvertsViewModel by viewModels<CategoryAdvertsViewModel>()
 
-    private val categoryAdvertsAdapter = CategoryAdvertsAdapter()
+    private val categoryAdvertsAdapterListener = object : CategoryAdvertsAdapter.CategoryAdvertsAdapterListener {
+        override fun onAdvertClick(advert: Advert) {
+            navToAdvertDetailsFragment(advert)
+        }
+    }
+
+    private val categoryAdvertsAdapter = CategoryAdvertsAdapter(categoryAdvertsAdapterListener)
 
     private val binding by viewBinding(FragmentCategoryAdvertsBinding::bind)
 
@@ -60,6 +67,10 @@ class CategoryAdvertsFragment : BaseFragment(R.layout.fragment_category_adverts)
                 categoryAdvertsAdapter.submitData(it)
             }
         }
+    }
+
+    private fun navToAdvertDetailsFragment(advert: Advert) {
+        nav(CategoryAdvertsFragmentDirections.actionCategoryAdvertsFragmentToAdvertDetailsFragment(advert))
     }
 
 }
