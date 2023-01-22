@@ -4,6 +4,7 @@ import android.graphics.Bitmap
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.PickVisualMediaRequest
@@ -67,6 +68,17 @@ class NewAdvertFragment : BaseFragment(R.layout.fragment_new_advert) {
                     addNewAdvert()
                 }
             }
+
+            // Init spinners
+            ArrayAdapter.createFromResource(
+                requireContext(),
+                R.array.cities,
+                android.R.layout.simple_spinner_item
+            ).also { adapter ->
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                citySpinner.adapter = adapter
+            }
+
         }
     }
 
@@ -134,7 +146,7 @@ class NewAdvertFragment : BaseFragment(R.layout.fragment_new_advert) {
                 images = listOf(base64Image.toString()),
                 price = price,
                 category = "Büyükbaş Hayvanlar",
-                city = "Denizli",
+                city = citySpinner.selectedItem as String,
                 userId = "userid123"
             )
         }
