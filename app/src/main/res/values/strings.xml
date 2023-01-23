@@ -30,6 +30,9 @@
     <string name="select_category">Kategori Seçiniz</string>
     <string name="adverts_not_found">Seçtiğiniz kategoride ilan bulunamadı</string>
     <string name="advert_details">İlan Detayları</string>
+    <string name="price_text">Fiyat</string>
+    <string name="city">Şehir</string>
+    <string name="description">Açıklama</string>
 
 
     <string-array name="categories">
