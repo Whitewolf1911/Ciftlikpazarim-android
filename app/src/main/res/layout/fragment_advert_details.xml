@@ -192,7 +192,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="8dp"
-
             android:textColor="@color/blue"
             android:textSize="@dimen/text_size_20"
             app:layout_constraintStart_toEndOf="@id/phoneText"

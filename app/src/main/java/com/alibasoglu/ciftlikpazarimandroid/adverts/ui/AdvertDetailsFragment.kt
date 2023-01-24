@@ -1,5 +1,7 @@
 package com.alibasoglu.ciftlikpazarimandroid.adverts.ui
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
@@ -47,7 +49,23 @@ class AdvertDetailsFragment : BaseFragment(R.layout.fragment_advert_details) {
             cityTextView.text = advertDetails.city
             priceTextView.text = price
             categoryTextView.text = advertDetails.category
+
+            phoneTextView.apply {
+                // TODO add phone number
+                text = "534 210 45 45"
+                paint.isUnderlineText = true
+                setOnClickListener {
+                    makePhoneCall("05344749450")
+                }
+            }
+
         }
+    }
+
+    private fun makePhoneCall(number: String) {
+        val intent = Intent(Intent.ACTION_DIAL)
+        intent.data = Uri.parse("tel:$number")
+        activity?.startActivity(intent)
     }
 
 }
