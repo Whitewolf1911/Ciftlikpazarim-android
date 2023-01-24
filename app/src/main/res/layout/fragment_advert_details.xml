@@ -14,7 +14,7 @@
             android:id="@+id/categoryTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="20dp"
             android:textColor="@color/black"
             android:textSize="@dimen/text_size_20"
             app:layout_constraintStart_toStartOf="parent"
@@ -25,13 +25,12 @@
             android:id="@+id/advertNameTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
+            android:layout_margin="8dp"
             android:padding="12dp"
+            android:textAlignment="textStart"
             android:textColor="@color/black"
             android:textSize="28sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/categoryTextView"
             tools:text="Çiftçiden temiz inekler bol sütlü güzel köyden denizliden" />
@@ -142,6 +141,63 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/descriptionTextView" />
+
+        <TextView
+            android:id="@+id/advertOwnerInfoText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="@string/advert_owner_details"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/descriptionTextView"
+            app:layout_constraintTop_toBottomOf="@id/divider4" />
+
+        <TextView
+            android:id="@+id/advertOwnerName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="@string/name_colon"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_size_20"
+            app:layout_constraintStart_toStartOf="@+id/advertOwnerInfoText"
+            app:layout_constraintTop_toBottomOf="@id/advertOwnerInfoText" />
+
+        <TextView
+            android:id="@+id/advertOwnerTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_size_20"
+            app:layout_constraintStart_toEndOf="@id/advertOwnerName"
+            app:layout_constraintTop_toBottomOf="@id/advertOwnerInfoText"
+            tools:text="Mehmet ziya" />
+
+        <TextView
+            android:id="@+id/phoneText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="@string/phone_colon"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_size_20"
+            app:layout_constraintStart_toStartOf="@+id/advertOwnerName"
+            app:layout_constraintTop_toBottomOf="@id/advertOwnerName" />
+
+        <TextView
+            android:id="@+id/phoneTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+
+            android:textColor="@color/blue"
+            android:textSize="@dimen/text_size_20"
+            app:layout_constraintStart_toEndOf="@id/phoneText"
+            app:layout_constraintTop_toBottomOf="@id/advertOwnerTextView"
+            tools:text="5345456789" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

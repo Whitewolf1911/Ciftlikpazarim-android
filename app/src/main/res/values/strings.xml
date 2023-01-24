@@ -33,6 +33,9 @@
     <string name="price_text">Fiyat</string>
     <string name="city">Şehir</string>
     <string name="description">Açıklama</string>
+    <string name="advert_owner_details">Satıcı Bilgileri</string>
+    <string name="name_colon">İsim :</string>
+    <string name="phone_colon">Telefon :</string>
 
 
     <string-array name="categories">
