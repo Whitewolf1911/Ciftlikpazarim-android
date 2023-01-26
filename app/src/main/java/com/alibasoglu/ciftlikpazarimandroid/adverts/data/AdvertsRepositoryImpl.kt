@@ -1,6 +1,5 @@
 package com.alibasoglu.ciftlikpazarimandroid.adverts.data
 
-import android.content.SharedPreferences
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import com.alibasoglu.ciftlikpazarimandroid.adverts.data.pagingsource.AdvertsPagingSource
@@ -10,7 +9,6 @@ import com.alibasoglu.ciftlikpazarimandroid.utils.Resource
 
 class AdvertsRepositoryImpl(
     private val api: AdvertsApi,
-    private val sharedPreferences: SharedPreferences,
 ) : AdvertsRepository {
 
     override suspend fun addNewAdvert(
@@ -33,11 +31,8 @@ class AdvertsRepositoryImpl(
                 category = category,
                 city = city
             )
-            val authToken = sharedPreferences.getString("authToken", null)
 
-            val response = api.addNewAdvert(
-                advert = advert, authToken = authToken.orEmpty()
-            )
+            val response = api.addNewAdvert(advert = advert)
             if (response.isSuccessful) {
                 return Resource.Success(data = null)
             } else {

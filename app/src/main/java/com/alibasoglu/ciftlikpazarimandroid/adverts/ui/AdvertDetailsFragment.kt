@@ -51,7 +51,7 @@ class AdvertDetailsFragment : BaseFragment(R.layout.fragment_advert_details) {
             categoryTextView.text = advertDetails.category
 
             phoneTextView.apply {
-                // TODO add phone number
+                // TODO add phone number after getting advert owners info
                 text = "534 210 45 45"
                 paint.isUnderlineText = true
                 setOnClickListener {
