@@ -4,7 +4,8 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.RecyclerView
+import androidx.lifecycle.lifecycleScope
+import androidx.paging.LoadState
 import com.alibasoglu.ciftlikpazarimandroid.R
 import com.alibasoglu.ciftlikpazarimandroid.adverts.domain.Advert
 import com.alibasoglu.ciftlikpazarimandroid.adverts.ui.AdvertsLoadStateAdapter
@@ -17,6 +18,7 @@ import com.alibasoglu.ciftlikpazarimandroid.utils.viewbinding.viewBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class CategoryAdvertsFragment : BaseFragment(R.layout.fragment_category_adverts) {
@@ -42,6 +44,7 @@ class CategoryAdvertsFragment : BaseFragment(R.layout.fragment_category_adverts)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initUi()
+        initAdvertsState()
         getCategoryAdverts()
     }
 
@@ -53,14 +56,7 @@ class CategoryAdvertsFragment : BaseFragment(R.layout.fragment_category_adverts)
             advertsRecyclerView.adapter = categoryAdvertsAdapter.withLoadStateFooter(
                 footer = AdvertsLoadStateAdapter { categoryAdvertsAdapter.retry() }
             )
-            val listener = object : RecyclerView.OnChildAttachStateChangeListener {
-                override fun onChildViewAttachedToWindow(view: View) {
-                    emptyStatusTextView.visibility = View.GONE
-                }
-
-                override fun onChildViewDetachedFromWindow(view: View) {}
-            }
-            advertsRecyclerView.addOnChildAttachStateChangeListener(listener)
+            retryButton.setOnClickListener { categoryAdvertsAdapter.retry() }
         }
     }
 
@@ -68,6 +64,28 @@ class CategoryAdvertsFragment : BaseFragment(R.layout.fragment_category_adverts)
         viewLifecycleOwner.observe {
             categoryAdvertsViewModel.getCategoryAdverts().collectLatest {
                 categoryAdvertsAdapter.submitData(it)
+            }
+        }
+    }
+
+    private fun initAdvertsState() {
+        lifecycleScope.launch {
+            categoryAdvertsAdapter.loadStateFlow.collectLatest { loadState ->
+                val isListEmpty = loadState.refresh is LoadState.NotLoading && categoryAdvertsAdapter.itemCount == 0
+                val isErrorOccurred = loadState.source.refresh is LoadState.Error
+                val isLoading = loadState.source.refresh is LoadState.Loading
+                with(binding) {
+                    // show empty list indicator
+                    advertsRecyclerView.isVisible = !isListEmpty
+                    emptyStatusTextView.isVisible = isListEmpty
+
+                    // show progress bar for loading state
+                    progressBar.isVisible = isLoading
+
+                    // show try again button if request fails
+                    retryButton.isVisible = isErrorOccurred
+                    errorMessage.isVisible = isErrorOccurred
+                }
             }
         }
     }

@@ -37,6 +37,7 @@
     <string name="name_colon">İsim :</string>
     <string name="phone_colon">Telefon :</string>
     <string name="retry">Tekrar dene</string>
+    <string name="check_your_connection">Bir hata oluştu.\nİnternet bağlantınızı kontrol ediniz.</string>
 
 
     <string-array name="categories">
