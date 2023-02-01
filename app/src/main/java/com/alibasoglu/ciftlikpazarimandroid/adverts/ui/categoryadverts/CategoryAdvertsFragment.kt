@@ -7,6 +7,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.alibasoglu.ciftlikpazarimandroid.R
 import com.alibasoglu.ciftlikpazarimandroid.adverts.domain.Advert
+import com.alibasoglu.ciftlikpazarimandroid.adverts.ui.AdvertsLoadStateAdapter
 import com.alibasoglu.ciftlikpazarimandroid.core.fragment.BaseFragment
 import com.alibasoglu.ciftlikpazarimandroid.core.fragment.FragmentConfiguration
 import com.alibasoglu.ciftlikpazarimandroid.core.fragment.ToolbarConfiguration
@@ -49,7 +50,9 @@ class CategoryAdvertsFragment : BaseFragment(R.layout.fragment_category_adverts)
         activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)?.isVisible = false
         getToolbar()?.setTitle(categoryAdvertsViewModel.getCategoryName())
         with(binding) {
-            advertsRecyclerView.adapter = categoryAdvertsAdapter
+            advertsRecyclerView.adapter = categoryAdvertsAdapter.withLoadStateFooter(
+                footer = AdvertsLoadStateAdapter { categoryAdvertsAdapter.retry() }
+            )
             val listener = object : RecyclerView.OnChildAttachStateChangeListener {
                 override fun onChildViewAttachedToWindow(view: View) {
                     emptyStatusTextView.visibility = View.GONE
