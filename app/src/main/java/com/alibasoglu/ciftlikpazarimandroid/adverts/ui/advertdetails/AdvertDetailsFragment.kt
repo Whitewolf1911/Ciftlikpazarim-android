@@ -1,4 +1,4 @@
-package com.alibasoglu.ciftlikpazarimandroid.adverts.ui
+package com.alibasoglu.ciftlikpazarimandroid.adverts.ui.advertdetails
 
 import android.content.Intent
 import android.net.Uri

@@ -1,4 +1,4 @@
-package com.alibasoglu.ciftlikpazarimandroid.adverts.ui
+package com.alibasoglu.ciftlikpazarimandroid.adverts.ui.newadvert
 
 import androidx.lifecycle.viewModelScope
 import com.alibasoglu.ciftlikpazarimandroid.adverts.domain.AdvertsRepository

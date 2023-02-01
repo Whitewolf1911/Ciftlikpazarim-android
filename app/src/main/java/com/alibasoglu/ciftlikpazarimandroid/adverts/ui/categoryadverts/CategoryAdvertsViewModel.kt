@@ -1,4 +1,4 @@
-package com.alibasoglu.ciftlikpazarimandroid.adverts.ui
+package com.alibasoglu.ciftlikpazarimandroid.adverts.ui.categoryadverts
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope

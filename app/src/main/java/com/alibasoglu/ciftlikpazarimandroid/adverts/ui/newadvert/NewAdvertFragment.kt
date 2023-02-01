@@ -1,4 +1,4 @@
-package com.alibasoglu.ciftlikpazarimandroid.adverts.ui
+package com.alibasoglu.ciftlikpazarimandroid.adverts.ui.newadvert
 
 import android.graphics.Bitmap
 import android.os.Bundle

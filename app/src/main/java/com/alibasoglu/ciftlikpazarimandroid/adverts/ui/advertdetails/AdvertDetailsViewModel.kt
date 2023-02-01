@@ -1,4 +1,4 @@
-package com.alibasoglu.ciftlikpazarimandroid.adverts.ui
+package com.alibasoglu.ciftlikpazarimandroid.adverts.ui.advertdetails
 
 import androidx.lifecycle.SavedStateHandle
 import com.alibasoglu.ciftlikpazarimandroid.adverts.domain.Advert

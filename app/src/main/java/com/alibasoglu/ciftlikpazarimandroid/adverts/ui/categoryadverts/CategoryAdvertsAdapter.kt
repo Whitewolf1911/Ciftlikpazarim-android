@@ -1,4 +1,4 @@
-package com.alibasoglu.ciftlikpazarimandroid.adverts.ui
+package com.alibasoglu.ciftlikpazarimandroid.adverts.ui.categoryadverts
 
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter

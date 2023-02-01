@@ -32,12 +32,12 @@
     </fragment>
     <fragment
         android:id="@+id/newAdvertFragment"
-        android:name="com.alibasoglu.ciftlikpazarimandroid.adverts.ui.NewAdvertFragment"
+        android:name="com.alibasoglu.ciftlikpazarimandroid.adverts.ui.newadvert.NewAdvertFragment"
         android:label="NewAdvertFragment"
         tools:layout="@layout/fragment_new_advert" />
     <fragment
         android:id="@+id/categoryAdvertsFragment"
-        android:name="com.alibasoglu.ciftlikpazarimandroid.adverts.ui.CategoryAdvertsFragment"
+        android:name="com.alibasoglu.ciftlikpazarimandroid.adverts.ui.categoryadverts.CategoryAdvertsFragment"
         android:label="CategoryAdvertsFragment"
         tools:layout="@layout/fragment_category_adverts">
         <argument
@@ -49,7 +49,7 @@
     </fragment>
     <fragment
         android:id="@+id/advertDetailsFragment"
-        android:name="com.alibasoglu.ciftlikpazarimandroid.adverts.ui.AdvertDetailsFragment"
+        android:name="com.alibasoglu.ciftlikpazarimandroid.adverts.ui.advertdetails.AdvertDetailsFragment"
         android:label="AdvertDetailsFragment"
         tools:layout="@layout/fragment_advert_details">
         <argument
