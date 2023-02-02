@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.RecyclerView
+import com.alibasoglu.ciftlikpazarimandroid.R
 import com.alibasoglu.ciftlikpazarimandroid.databinding.AdvertsLoadStateFooterViewItemBinding
 
 class AdvertsLoadStateViewHolder(
@@ -18,7 +19,7 @@ class AdvertsLoadStateViewHolder(
 
     fun bind(loadState: LoadState) {
         if (loadState is LoadState.Error) {
-            binding.errorMsgTextView.text = loadState.error.message
+            binding.errorMsgTextView.text = itemView.context.getString(R.string.error_occurred)
         }
         binding.progressBar.isVisible = loadState is LoadState.Loading
         binding.retryButton.isVisible = loadState is LoadState.Error

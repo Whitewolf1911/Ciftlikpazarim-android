@@ -6,6 +6,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
+import androidx.paging.PagingData
 import com.alibasoglu.ciftlikpazarimandroid.R
 import com.alibasoglu.ciftlikpazarimandroid.adverts.domain.Advert
 import com.alibasoglu.ciftlikpazarimandroid.adverts.ui.AdvertsLoadStateAdapter
@@ -17,6 +18,7 @@ import com.alibasoglu.ciftlikpazarimandroid.utils.lifecycle.observe
 import com.alibasoglu.ciftlikpazarimandroid.utils.viewbinding.viewBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -30,6 +32,10 @@ class CategoryAdvertsFragment : BaseFragment(R.layout.fragment_category_adverts)
     override val fragmentConfiguration = FragmentConfiguration(toolbarConfiguration = toolbarConfiguration)
 
     private val categoryAdvertsViewModel by viewModels<CategoryAdvertsViewModel>()
+
+    private val advertsStateCollector = FlowCollector<PagingData<Advert>> {
+        categoryAdvertsAdapter.submitData(it)
+    }
 
     private val categoryAdvertsAdapterListener = object : CategoryAdvertsAdapter.CategoryAdvertsAdapterListener {
         override fun onAdvertClick(advert: Advert) {
@@ -45,9 +51,8 @@ class CategoryAdvertsFragment : BaseFragment(R.layout.fragment_category_adverts)
         super.onViewCreated(view, savedInstanceState)
         initUi()
         initAdvertsState()
-        getCategoryAdverts()
+        initObservers()
     }
-
 
     private fun initUi() {
         activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)?.isVisible = false
@@ -60,11 +65,9 @@ class CategoryAdvertsFragment : BaseFragment(R.layout.fragment_category_adverts)
         }
     }
 
-    private fun getCategoryAdverts() {
+    private fun initObservers() {
         viewLifecycleOwner.observe {
-            categoryAdvertsViewModel.getCategoryAdverts().collectLatest {
-                categoryAdvertsAdapter.submitData(it)
-            }
+            categoryAdvertsViewModel.categoryAdvertsState.collect(advertsStateCollector)
         }
     }
 
