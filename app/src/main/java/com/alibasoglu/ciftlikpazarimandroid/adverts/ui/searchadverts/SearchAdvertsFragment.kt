@@ -32,7 +32,6 @@ class SearchAdvertsFragment : BaseFragment(R.layout.fragment_search_adverts) {
     )
     override val fragmentConfiguration = FragmentConfiguration(toolbarConfiguration)
 
-
     private val searchAdvertsViewModel by viewModels<SearchAdvertsViewModel>()
 
     private val binding by viewBinding(FragmentSearchAdvertsBinding::bind)
@@ -44,11 +43,6 @@ class SearchAdvertsFragment : BaseFragment(R.layout.fragment_search_adverts) {
     }
 
     private val advertsAdapter = AdvertsAdapter(advertsAdapterListener)
-
-//    private val searchedAdvertsFlowCollector = FlowCollector<PagingData<Advert>> {
-//        advertsAdapter.submitData(it)
-//    }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
