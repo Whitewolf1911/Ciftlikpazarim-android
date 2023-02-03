@@ -1,11 +1,11 @@
-package com.alibasoglu.ciftlikpazarimandroid.adverts.ui.categoryadverts
+package com.alibasoglu.ciftlikpazarimandroid.adverts.ui
 
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import com.alibasoglu.ciftlikpazarimandroid.adverts.domain.Advert
 import com.alibasoglu.ciftlikpazarimandroid.utils.list.BaseDiffUtil
 
-class CategoryAdvertsAdapter(
+class AdvertsAdapter(
     private val listener: CategoryAdvertsAdapterListener
 ) : PagingDataAdapter<Advert, AdvertItemViewHolder>(BaseDiffUtil()) {
 

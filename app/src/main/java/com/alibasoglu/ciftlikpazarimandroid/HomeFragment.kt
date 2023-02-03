@@ -28,6 +28,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
     private fun initUi() {
         activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)?.isVisible = true
         with(binding) {
+            searchView.setIconifiedByDefault(false)
             cowButton.setOnClickListener {
                 navToCategoryAdvertsFragment(R.string.cows)
             }

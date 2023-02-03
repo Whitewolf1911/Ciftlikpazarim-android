@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_homeFragment_to_categoryAdvertsFragment"
             app:destination="@id/categoryAdvertsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_searchAdvertsFragment"
+            app:destination="@id/searchAdvertsFragment" />
     </fragment>
     <fragment
         android:id="@+id/favoritesFragment"
@@ -55,5 +58,14 @@
         <argument
             android:name="advert"
             app:argType="com.alibasoglu.ciftlikpazarimandroid.adverts.domain.Advert" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchAdvertsFragment"
+        tools:layout="@layout/fragment_search_adverts"
+        android:name="com.alibasoglu.ciftlikpazarimandroid.adverts.ui.searchadverts.SearchAdvertsFragment"
+        android:label="SearchAdvertsFragment" >
+        <argument
+            android:name="searchQuery"
+            app:argType="string" />
     </fragment>
 </navigation>
