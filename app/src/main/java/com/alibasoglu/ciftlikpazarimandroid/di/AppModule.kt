@@ -1,8 +1,9 @@
 package com.alibasoglu.ciftlikpazarimandroid.di
 
 import android.app.Application
-import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
+import androidx.security.crypto.EncryptedSharedPreferences
+import androidx.security.crypto.MasterKeys
 import com.alibasoglu.ciftlikpazarimandroid.auth.data.AuthApi
 import com.alibasoglu.ciftlikpazarimandroid.auth.domain.AuthRepository
 import com.alibasoglu.ciftlikpazarimandroid.auth.data.AuthRepositoryImpl
@@ -33,7 +34,15 @@ object AppModule {
     @Provides
     @Singleton
     fun provideSharedPref(app: Application): SharedPreferences {
-        return app.getSharedPreferences("prefs", MODE_PRIVATE)
+        val masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC)
+        return EncryptedSharedPreferences.create(
+            // passing a file name to share a preferences
+            "securePreferences",
+            masterKeyAlias,
+            app.applicationContext,
+            EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+            EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+        )
     }
 
     @Provides

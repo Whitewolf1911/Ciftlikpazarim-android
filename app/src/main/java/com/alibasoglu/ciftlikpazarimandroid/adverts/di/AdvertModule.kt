@@ -4,6 +4,7 @@ import android.content.SharedPreferences
 import com.alibasoglu.ciftlikpazarimandroid.adverts.data.AdvertsApi
 import com.alibasoglu.ciftlikpazarimandroid.adverts.data.AdvertsRepositoryImpl
 import com.alibasoglu.ciftlikpazarimandroid.adverts.domain.AdvertsRepository
+import com.alibasoglu.ciftlikpazarimandroid.auth.data.AuthRepositoryImpl
 import com.alibasoglu.ciftlikpazarimandroid.di.AppModule
 import dagger.Module
 import dagger.Provides
@@ -23,7 +24,7 @@ object AdvertModule {
     @Provides
     @Singleton
     fun provideOkHttpClient(sharedPreferences: SharedPreferences): OkHttpClient {
-        val authToken = sharedPreferences.getString("authToken", "") ?: "no Token"
+        val authToken = sharedPreferences.getString(AuthRepositoryImpl.AUTH_TOKEN_PREFERENCE_NAME, "") ?: "no Token"
 
         val headerInterceptor = Interceptor { chain ->
             chain.run {

@@ -52,7 +52,7 @@ class AuthRepositoryImpl(
             )
             if (response.isSuccessful) {
                 sharedPreferences.edit()
-                    .putString("authToken", response.body()?.token)
+                    .putString(AUTH_TOKEN_PREFERENCE_NAME, response.body()?.token)
                     .apply()
                 AuthResult.Authorized()
             } else {
@@ -67,7 +67,7 @@ class AuthRepositoryImpl(
 
     override suspend fun authenticate(): AuthResult<Unit> {
         return try {
-            val token = sharedPreferences.getString("authToken", null) ?: return AuthResult.Unauthorized()
+            val token = sharedPreferences.getString(AUTH_TOKEN_PREFERENCE_NAME, null) ?: return AuthResult.Unauthorized()
             val response = api.authenticate(token)
             if (response.isSuccessful && response.body() == true) {
                 AuthResult.Authorized()
@@ -79,5 +79,9 @@ class AuthRepositoryImpl(
         } catch (e: Exception) {
             AuthResult.UnknownError()
         }
+    }
+
+    companion object{
+        const val AUTH_TOKEN_PREFERENCE_NAME = "authToken"
     }
 }
