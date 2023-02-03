@@ -37,7 +37,7 @@ class CategoryAdvertsViewModel @Inject constructor(
 
     private fun getCategoryAdverts() {
         viewModelScope.launch {
-            advertsRepository.getCategoryAdvertsPager(category = category)
+            advertsRepository.getAdvertsPager(category = category, searchQuery = null)
                 .flow
                 .cachedIn(viewModelScope).collectLatest {
                     _categoryAdvertsState.value = it

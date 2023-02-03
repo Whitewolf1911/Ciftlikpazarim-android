@@ -44,12 +44,12 @@ class AdvertsRepositoryImpl(
         }
     }
 
-    override fun getCategoryAdvertsPager(category: String) = Pager(
+    override fun getAdvertsPager(category: String?, searchQuery: String?) = Pager(
         config = PagingConfig(
             pageSize = AdvertsPagingSource.ADVERTS_PAGE_SIZE,
             initialLoadSize = AdvertsPagingSource.ADVERTS_PAGE_SIZE,
             enablePlaceholders = false,
         ),
-        pagingSourceFactory = { AdvertsPagingSource(advertsApi = api, category = category) }
+        pagingSourceFactory = { AdvertsPagingSource(advertsApi = api, category = category, searchQuery = searchQuery) }
     )
 }

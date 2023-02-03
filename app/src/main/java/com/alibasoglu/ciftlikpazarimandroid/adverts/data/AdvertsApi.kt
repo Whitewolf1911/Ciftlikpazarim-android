@@ -20,4 +20,9 @@ interface AdvertsApi {
         @Query("category") category: String, @Query("page") page: Int
     ): Response<List<Advert>>
 
+    @GET("/api/adverts/search")
+    suspend fun getSearchQueryAdverts(
+        @Query("search") searchQuery: String, @Query("page") page: Int
+    ): Response<List<Advert>>
+
 }
