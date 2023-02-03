@@ -2,6 +2,7 @@ package com.alibasoglu.ciftlikpazarimandroid
 
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import com.alibasoglu.ciftlikpazarimandroid.core.fragment.BaseFragment
 import com.alibasoglu.ciftlikpazarimandroid.core.fragment.FragmentConfiguration
@@ -28,6 +29,22 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
     private fun initUi() {
         activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)?.isVisible = true
         with(binding) {
+            searchView.apply {
+                maxWidth = Int.MAX_VALUE
+                setIconifiedByDefault(false)
+                setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                    override fun onQueryTextSubmit(query: String?): Boolean {
+                        if (query != null && query.isNotBlank()) {
+                            navToSearchAdvertsFragment(query)
+                        }
+                        return true
+                    }
+
+                    override fun onQueryTextChange(newText: String?): Boolean {
+                        return false
+                    }
+                })
+            }
             cowButton.setOnClickListener {
                 navToCategoryAdvertsFragment(R.string.cows)
             }
@@ -51,6 +68,10 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
 
     private fun navToCategoryAdvertsFragment(categorySelectedRes: Int) {
         nav(HomeFragmentDirections.actionHomeFragmentToCategoryAdvertsFragment(getString(categorySelectedRes)))
+    }
+
+    private fun navToSearchAdvertsFragment(searchQuery: String) {
+        nav(HomeFragmentDirections.actionHomeFragmentToSearchAdvertsFragment(searchQuery))
     }
 
 }

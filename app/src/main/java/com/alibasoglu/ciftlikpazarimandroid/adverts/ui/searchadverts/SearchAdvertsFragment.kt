@@ -1,12 +1,12 @@
-package com.alibasoglu.ciftlikpazarimandroid.adverts.ui.categoryadverts
+package com.alibasoglu.ciftlikpazarimandroid.adverts.ui.searchadverts
 
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
-import androidx.paging.PagingData
 import com.alibasoglu.ciftlikpazarimandroid.R
 import com.alibasoglu.ciftlikpazarimandroid.adverts.domain.Advert
 import com.alibasoglu.ciftlikpazarimandroid.adverts.ui.AdvertsAdapter
@@ -14,29 +14,28 @@ import com.alibasoglu.ciftlikpazarimandroid.adverts.ui.AdvertsLoadStateAdapter
 import com.alibasoglu.ciftlikpazarimandroid.core.fragment.BaseFragment
 import com.alibasoglu.ciftlikpazarimandroid.core.fragment.FragmentConfiguration
 import com.alibasoglu.ciftlikpazarimandroid.core.fragment.ToolbarConfiguration
-import com.alibasoglu.ciftlikpazarimandroid.databinding.FragmentCategoryAdvertsBinding
+import com.alibasoglu.ciftlikpazarimandroid.databinding.FragmentSearchAdvertsBinding
 import com.alibasoglu.ciftlikpazarimandroid.utils.lifecycle.observe
 import com.alibasoglu.ciftlikpazarimandroid.utils.viewbinding.viewBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class CategoryAdvertsFragment : BaseFragment(R.layout.fragment_category_adverts) {
+class SearchAdvertsFragment : BaseFragment(R.layout.fragment_search_adverts) {
 
     private val toolbarConfiguration = ToolbarConfiguration(
+        titleResId = R.string.search_results,
         startIconResId = R.drawable.ic_baseline_arrow_back_24,
-        startIconClick = ::navBack,
+        startIconClick = ::navBack
     )
-    override val fragmentConfiguration = FragmentConfiguration(toolbarConfiguration = toolbarConfiguration)
+    override val fragmentConfiguration = FragmentConfiguration(toolbarConfiguration)
 
-    private val categoryAdvertsViewModel by viewModels<CategoryAdvertsViewModel>()
 
-    private val advertsStateCollector = FlowCollector<PagingData<Advert>> {
-        advertsAdapter.submitData(it)
-    }
+    private val searchAdvertsViewModel by viewModels<SearchAdvertsViewModel>()
+
+    private val binding by viewBinding(FragmentSearchAdvertsBinding::bind)
 
     private val advertsAdapterListener = object : AdvertsAdapter.CategoryAdvertsAdapterListener {
         override fun onAdvertClick(advert: Advert) {
@@ -46,29 +45,41 @@ class CategoryAdvertsFragment : BaseFragment(R.layout.fragment_category_adverts)
 
     private val advertsAdapter = AdvertsAdapter(advertsAdapterListener)
 
-    private val binding by viewBinding(FragmentCategoryAdvertsBinding::bind)
+//    private val searchedAdvertsFlowCollector = FlowCollector<PagingData<Advert>> {
+//        advertsAdapter.submitData(it)
+//    }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initUi()
+        initUI()
         initAdvertsState()
         initObservers()
     }
 
-    private fun initUi() {
+    private fun initUI() {
         activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)?.isVisible = false
-        getToolbar()?.setTitle(categoryAdvertsViewModel.getCategoryName())
         with(binding) {
+            searchView.apply {
+                setIconifiedByDefault(false)
+                setQuery(searchAdvertsViewModel.getInitialSearchQuery(), false)
+                setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                    override fun onQueryTextSubmit(query: String?): Boolean {
+                        if (query != null && query.isNotBlank()) {
+                            searchAdvertsViewModel.getSearchedAdverts(query)
+                        }
+                        return true
+                    }
+
+                    override fun onQueryTextChange(newText: String?): Boolean {
+                        return false
+                    }
+                })
+            }
             advertsRecyclerView.adapter = advertsAdapter.withLoadStateFooter(
                 footer = AdvertsLoadStateAdapter { advertsAdapter.retry() }
             )
             retryButton.setOnClickListener { advertsAdapter.retry() }
-        }
-    }
-
-    private fun initObservers() {
-        viewLifecycleOwner.observe {
-            categoryAdvertsViewModel.categoryAdvertsState.collect(advertsStateCollector)
         }
     }
 
@@ -94,8 +105,15 @@ class CategoryAdvertsFragment : BaseFragment(R.layout.fragment_category_adverts)
         }
     }
 
-    private fun navToAdvertDetailsFragment(advert: Advert) {
-        nav(CategoryAdvertsFragmentDirections.actionCategoryAdvertsFragmentToAdvertDetailsFragment(advert))
+    private fun initObservers() {
+        viewLifecycleOwner.observe {
+            searchAdvertsViewModel.searchAdvertsFlow.collectLatest {
+                advertsAdapter.submitData(it)
+            }
+        }
     }
 
+    private fun navToAdvertDetailsFragment(advert: Advert) {
+        nav(SearchAdvertsFragmentDirections.actionSearchAdvertsFragmentToAdvertDetailsFragment(advert))
+    }
 }

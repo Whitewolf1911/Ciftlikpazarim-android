@@ -1,4 +1,4 @@
-package com.alibasoglu.ciftlikpazarimandroid.adverts.ui.categoryadverts
+package com.alibasoglu.ciftlikpazarimandroid.adverts.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

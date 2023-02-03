@@ -1,5 +1,6 @@
-package com.alibasoglu.ciftlikpazarimandroid.adverts.ui.categoryadverts
+package com.alibasoglu.ciftlikpazarimandroid.adverts.ui.searchadverts
 
+import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
@@ -16,36 +17,40 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @HiltViewModel
-class CategoryAdvertsViewModel @Inject constructor(
+class SearchAdvertsViewModel @Inject constructor(
     private val advertsRepository: AdvertsRepository,
     savedStateHandle: SavedStateHandle
 ) : BaseViewModel() {
 
-    private val category = savedStateHandle.getOrThrow<String>(CATEGORY_KEY)
+    private val searchQuery = savedStateHandle.getOrThrow<String>(SEARCH_QUERY_KEY)
 
-    private val _categoryAdvertsState = MutableStateFlow<PagingData<Advert>>(PagingData.empty())
-    val categoryAdvertsState: StateFlow<PagingData<Advert>>
-        get() = _categoryAdvertsState
+    private var _searchAdvertsFlow = MutableStateFlow<PagingData<Advert>>(PagingData.empty())
+    val searchAdvertsFlow: StateFlow<PagingData<Advert>>
+        get() = _searchAdvertsFlow
+
 
     init {
-        getCategoryAdverts()
+        getSearchedAdverts(searchQuery)
     }
 
-    fun getCategoryName(): String {
-        return category
-    }
-
-    private fun getCategoryAdverts() {
+    fun getSearchedAdverts(searchQuery: String) {
+        Log.d("tagi", "get search triggered")
         viewModelScope.launch {
-            advertsRepository.getAdvertsPager(category = category, searchQuery = null)
+            advertsRepository.getAdvertsPager(category = null, searchQuery = searchQuery)
                 .flow
-                .cachedIn(viewModelScope).collectLatest {
-                    _categoryAdvertsState.value = it
+                .cachedIn(viewModelScope)
+                .collectLatest {
+                    _searchAdvertsFlow.value = it
                 }
         }
     }
 
-    companion object {
-        const val CATEGORY_KEY = "category"
+    fun getInitialSearchQuery(): String {
+        return searchQuery
     }
+
+    companion object {
+        const val SEARCH_QUERY_KEY = "searchQuery"
+    }
+
 }

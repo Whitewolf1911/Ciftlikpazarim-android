@@ -10,7 +10,8 @@ import retrofit2.HttpException
 
 class AdvertsPagingSource(
     private val advertsApi: AdvertsApi,
-    private val category: String
+    private val category: String?,
+    private val searchQuery: String?
 ) : PagingSource<Int, Advert>() {
 
     override fun getRefreshKey(state: PagingState<Int, Advert>): Int? {
@@ -24,7 +25,12 @@ class AdvertsPagingSource(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Advert> {
         var page = params.key ?: FIRST_PAGE_INDEX
         return try {
-            val advertsListResponse = advertsApi.getCategoryAdverts(category = category, page = page).body()
+            // if category is passed get category adverts otherwise get search results
+            val advertsListResponse =
+                category?.let { advertsApi.getCategoryAdverts(category = category, page = page).body() }
+                    ?: searchQuery?.let {
+                        advertsApi.getSearchQueryAdverts(searchQuery = searchQuery, page = page).body()
+                    }
             val adverts = advertsListResponse.orEmpty()
             val nextKey = if (adverts.isEmpty()) null else page.plus(1)
             val prevKey = if (page == FIRST_PAGE_INDEX) null else page.minus(1)

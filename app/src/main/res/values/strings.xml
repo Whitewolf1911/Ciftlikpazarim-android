@@ -38,6 +38,9 @@
     <string name="phone_colon">Telefon :</string>
     <string name="retry">Tekrar dene</string>
     <string name="check_your_connection">Bir hata oluştu.\nİnternet bağlantınızı kontrol ediniz.</string>
+    <string name="search_not_found">Aradığınız ilan bulunamadı.</string>
+    <string name="search_advert">İlan arayın</string>
+    <string name="search_results">Arama Sonuçları</string>
 
 
     <string-array name="categories">

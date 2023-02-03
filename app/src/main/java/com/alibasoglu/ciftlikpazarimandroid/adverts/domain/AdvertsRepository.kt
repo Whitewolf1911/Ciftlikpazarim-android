@@ -15,6 +15,6 @@ interface AdvertsRepository {
         city: String,
     ): Resource<String>
 
-    fun getCategoryAdvertsPager(category: String): Pager<Int, Advert>
+    fun getAdvertsPager(category: String?, searchQuery: String?): Pager<Int, Advert>
 
 }
