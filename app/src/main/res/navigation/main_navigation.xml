@@ -67,5 +67,8 @@
         <argument
             android:name="searchQuery"
             app:argType="string" />
+        <action
+            android:id="@+id/action_searchAdvertsFragment_to_advertDetailsFragment"
+            app:destination="@id/advertDetailsFragment" />
     </fragment>
 </navigation>
