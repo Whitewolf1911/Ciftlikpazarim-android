@@ -39,6 +39,7 @@
             android:id="@+id/advertImageView"
             android:layout_width="match_parent"
             android:layout_height="200dp"
+            android:transitionName="image_small"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"

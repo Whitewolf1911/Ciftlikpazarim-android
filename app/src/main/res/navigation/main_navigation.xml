@@ -58,6 +58,9 @@
         <argument
             android:name="advert"
             app:argType="com.alibasoglu.ciftlikpazarimandroid.adverts.domain.Advert" />
+        <action
+            android:id="@+id/action_advertDetailsFragment_to_advertImageFragment"
+            app:destination="@id/advertImageFragment" />
     </fragment>
     <fragment
         android:id="@+id/searchAdvertsFragment"
@@ -70,5 +73,13 @@
         <action
             android:id="@+id/action_searchAdvertsFragment_to_advertDetailsFragment"
             app:destination="@id/advertDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/advertImageFragment"
+        android:name="com.alibasoglu.ciftlikpazarimandroid.adverts.ui.advertdetails.AdvertImageFragment"
+        android:label="AdvertImageFragment" >
+        <argument
+            android:name="advert_image_data"
+            app:argType="string" />
     </fragment>
 </navigation>

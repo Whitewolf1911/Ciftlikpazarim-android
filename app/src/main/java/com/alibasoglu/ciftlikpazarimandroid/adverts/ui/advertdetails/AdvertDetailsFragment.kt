@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.FragmentNavigatorExtras
+import androidx.navigation.fragment.findNavController
 import com.alibasoglu.ciftlikpazarimandroid.R
 import com.alibasoglu.ciftlikpazarimandroid.core.fragment.BaseFragment
 import com.alibasoglu.ciftlikpazarimandroid.core.fragment.FragmentConfiguration
@@ -39,11 +41,11 @@ class AdvertDetailsFragment : BaseFragment(R.layout.fragment_advert_details) {
     private fun initUi() {
         activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)?.isVisible = false
         val advertDetails = advertDetailsViewModel.getAdvertDetails()
+        val advertImageData = advertDetails.images[0]
+        val price = "${advertDetails.price} TL"
 
         with(binding) {
-            val price = "${advertDetails.price} TL"
-
-            advertImageView.setImageBitmap(decodeBase64Image(advertDetails.images[0]))
+            advertImageView.setImageBitmap(decodeBase64Image(advertImageData))
             advertNameTextView.text = advertDetails.name
             descriptionTextView.text = advertDetails.description
             cityTextView.text = advertDetails.city
@@ -58,7 +60,17 @@ class AdvertDetailsFragment : BaseFragment(R.layout.fragment_advert_details) {
                     makePhoneCall("05344749450")
                 }
             }
-
+            advertImageView.setOnClickListener {
+                val extras = FragmentNavigatorExtras(advertImageView to TRANSITION_NAME)
+                val bundle = Bundle()
+                bundle.putString("advert_image_data", advertImageData)
+                findNavController().navigate(
+                    R.id.action_advertDetailsFragment_to_advertImageFragment,
+                    bundle,
+                    null,
+                    extras
+                )
+            }
         }
     }
 
@@ -68,4 +80,7 @@ class AdvertDetailsFragment : BaseFragment(R.layout.fragment_advert_details) {
         activity?.startActivity(intent)
     }
 
+    companion object {
+        const val TRANSITION_NAME = "image_big"
+    }
 }
