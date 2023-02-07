@@ -5,6 +5,6 @@ import com.alibasoglu.ciftlikpazarimandroid.utils.Resource
 
 interface MessagesRepository {
 
-    fun getMessagesPreviews(): Resource<MessagePreview>
+    suspend fun getMessagesPreviews(): Resource<List<MessagePreview>>
 
 }

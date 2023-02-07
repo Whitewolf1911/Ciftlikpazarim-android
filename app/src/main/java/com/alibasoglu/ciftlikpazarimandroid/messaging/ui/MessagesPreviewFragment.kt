@@ -2,6 +2,7 @@ package com.alibasoglu.ciftlikpazarimandroid.messaging.ui
 
 import android.os.Bundle
 import android.view.View
+import androidx.fragment.app.viewModels
 import com.alibasoglu.ciftlikpazarimandroid.R
 import com.alibasoglu.ciftlikpazarimandroid.core.fragment.BaseFragment
 import com.alibasoglu.ciftlikpazarimandroid.core.fragment.FragmentConfiguration
@@ -15,10 +16,13 @@ class MessagesPreviewFragment : BaseFragment(R.layout.fragment_messages_preview)
 
     override val fragmentConfiguration = FragmentConfiguration(toolbarConfiguration)
 
+    private val messagesPreviewViewModel by viewModels<MessagesPreviewViewModel>()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initUi()
         initObservers()
+        messagesPreviewViewModel.getMessagesPreview()
     }
 
 

@@ -4,11 +4,11 @@ import com.alibasoglu.ciftlikpazarimandroid.messaging.data.model.MessagesPreview
 import com.alibasoglu.ciftlikpazarimandroid.messaging.model.MessagePreview
 import retrofit2.Response
 import retrofit2.http.Body
-import retrofit2.http.GET
+import retrofit2.http.POST
 
 interface MessagingApi {
 
-    @GET("/api/getMessagesPreviews")
+    @POST("/api/getMessagesPreviews")
     suspend fun getMessagesPreviews(
         @Body messagesPreviewsRequest: MessagesPreviewsRequest
     ): Response<List<MessagePreview>>
