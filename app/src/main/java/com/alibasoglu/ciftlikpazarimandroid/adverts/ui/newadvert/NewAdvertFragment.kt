@@ -57,6 +57,11 @@ class NewAdvertFragment : BaseFragment(R.layout.fragment_new_advert) {
         initObservers()
     }
 
+    override fun onPause() {
+        super.onPause()
+        newAdvertViewModel.clearNewAdvertState()
+    }
+
     private fun initUi() {
         // TODO add validation
         with(binding) {
