@@ -64,9 +64,9 @@
     </fragment>
     <fragment
         android:id="@+id/searchAdvertsFragment"
-        tools:layout="@layout/fragment_search_adverts"
         android:name="com.alibasoglu.ciftlikpazarimandroid.adverts.ui.searchadverts.SearchAdvertsFragment"
-        android:label="SearchAdvertsFragment" >
+        android:label="SearchAdvertsFragment"
+        tools:layout="@layout/fragment_search_adverts">
         <argument
             android:name="searchQuery"
             app:argType="string" />
@@ -77,9 +77,14 @@
     <fragment
         android:id="@+id/advertImageFragment"
         android:name="com.alibasoglu.ciftlikpazarimandroid.adverts.ui.advertdetails.AdvertImageFragment"
-        android:label="AdvertImageFragment" >
+        android:label="AdvertImageFragment">
         <argument
             android:name="advert_image_data"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/messagesPreviewFragment"
+        android:name="com.alibasoglu.ciftlikpazarimandroid.messaging.ui.MessagesPreviewFragment"
+        android:label="MessagesPreviewFragment"
+        tools:layout="@layout/fragment_messages_preview" />
 </navigation>

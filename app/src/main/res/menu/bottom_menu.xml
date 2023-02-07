@@ -14,7 +14,7 @@
         android:icon="@drawable/ic_add"
         android:title="@string/add_advert" />
     <item
-        android:id="@+id/messagesFragment"
+        android:id="@+id/messagesPreviewFragment"
         android:icon="@drawable/ic_messages"
         android:title="@string/messages" />
     <item
