@@ -1,4 +1,4 @@
-package com.alibasoglu.ciftlikpazarimandroid.messaging.ui
+package com.alibasoglu.ciftlikpazarimandroid.messaging.ui.messagespreviews
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border

@@ -84,7 +84,7 @@
     </fragment>
     <fragment
         android:id="@+id/messagesPreviewFragment"
-        android:name="com.alibasoglu.ciftlikpazarimandroid.messaging.ui.MessagesPreviewFragment"
+        android:name="com.alibasoglu.ciftlikpazarimandroid.messaging.ui.messagespreviews.MessagesPreviewFragment"
         android:label="MessagesPreviewFragment"
         tools:layout="@layout/fragment_messages_preview" />
 </navigation>

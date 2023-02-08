@@ -41,6 +41,7 @@
     <string name="search_not_found">Aradığınız ilan bulunamadı.</string>
     <string name="search_advert">İlan arayın</string>
     <string name="search_results">Arama Sonuçları</string>
+    <string name="messages_shown_here">Mesajlarınız burada görünür.</string>
 
 
     <string-array name="categories">
