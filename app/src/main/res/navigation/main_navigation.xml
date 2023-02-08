@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/favoritesFragment"
-        android:name="com.alibasoglu.ciftlikpazarimandroid.FavoritesFragment"
+        android:name="com.alibasoglu.ciftlikpazarimandroid.adverts.ui.FavoritesFragment"
         android:label="FavoritesFragment"
         tools:layout="@layout/fragment_favorites" />
     <fragment

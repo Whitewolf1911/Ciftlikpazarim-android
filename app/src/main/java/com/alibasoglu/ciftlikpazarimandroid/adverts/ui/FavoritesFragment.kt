@@ -1,5 +1,6 @@
-package com.alibasoglu.ciftlikpazarimandroid
+package com.alibasoglu.ciftlikpazarimandroid.adverts.ui
 
+import com.alibasoglu.ciftlikpazarimandroid.R
 import com.alibasoglu.ciftlikpazarimandroid.core.fragment.BaseFragment
 import com.alibasoglu.ciftlikpazarimandroid.core.fragment.FragmentConfiguration
 import com.alibasoglu.ciftlikpazarimandroid.core.fragment.ToolbarConfiguration
