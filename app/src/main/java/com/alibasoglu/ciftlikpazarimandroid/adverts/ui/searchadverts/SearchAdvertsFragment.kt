@@ -17,7 +17,6 @@ import com.alibasoglu.ciftlikpazarimandroid.core.fragment.ToolbarConfiguration
 import com.alibasoglu.ciftlikpazarimandroid.databinding.FragmentSearchAdvertsBinding
 import com.alibasoglu.ciftlikpazarimandroid.utils.lifecycle.observe
 import com.alibasoglu.ciftlikpazarimandroid.utils.viewbinding.viewBinding
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -52,7 +51,7 @@ class SearchAdvertsFragment : BaseFragment(R.layout.fragment_search_adverts) {
     }
 
     private fun initUI() {
-        activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)?.isVisible = false
+        hideBottomNavBar()
         with(binding) {
             searchView.apply {
                 setIconifiedByDefault(false)

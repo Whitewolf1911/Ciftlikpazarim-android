@@ -1,7 +1,8 @@
 package com.alibasoglu.ciftlikpazarimandroid
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.NavHostFragment
@@ -41,6 +42,14 @@ class MainActivity : AppCompatActivity() {
 
     fun configureToolbar(toolbarConfiguration: ToolbarConfiguration?) {
         binding.toolbar.configure(toolbarConfiguration)
+    }
+
+    fun hideNavBar() {
+        binding.bottomNavigationView.visibility = View.GONE
+    }
+
+    fun showNavBar() {
+        binding.bottomNavigationView.visibility = View.VISIBLE
     }
 
     fun getToolbar(): CustomToolbar = binding.toolbar

@@ -23,6 +23,7 @@ class ChatFragment : BaseFragment(R.layout.fragment_chat) {
 
 
     private fun initUi() {
+        hideBottomNavBar()
         //TODO implement composableUI
     }
 

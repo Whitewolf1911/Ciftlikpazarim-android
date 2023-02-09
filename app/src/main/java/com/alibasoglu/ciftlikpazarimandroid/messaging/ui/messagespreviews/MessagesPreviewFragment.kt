@@ -51,6 +51,7 @@ class MessagesPreviewFragment : BaseFragment(R.layout.fragment_messages_preview)
 
     override fun onResume() {
         super.onResume()
+        showBottomNavBar()
         messagesPreviewViewModel.getMessagesPreview()
     }
 
