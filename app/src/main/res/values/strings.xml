@@ -42,6 +42,7 @@
     <string name="search_advert">İlan arayın</string>
     <string name="search_results">Arama Sonuçları</string>
     <string name="messages_shown_here">Mesajlarınız burada görünür.</string>
+    <string name="messaging">Mesajlaşma</string>
 
 
     <string-array name="categories">
