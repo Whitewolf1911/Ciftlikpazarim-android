@@ -1,6 +1,8 @@
 package com.alibasoglu.ciftlikpazarimandroid.messaging.data
 
 import com.alibasoglu.ciftlikpazarimandroid.messaging.data.model.MessagesPreviewsRequest
+import com.alibasoglu.ciftlikpazarimandroid.messaging.data.model.MessagesRequest
+import com.alibasoglu.ciftlikpazarimandroid.messaging.model.Message
 import com.alibasoglu.ciftlikpazarimandroid.messaging.model.MessagePreview
 import retrofit2.Response
 import retrofit2.http.Body
@@ -12,5 +14,10 @@ interface MessagingApi {
     suspend fun getMessagesPreviews(
         @Body messagesPreviewsRequest: MessagesPreviewsRequest
     ): Response<List<MessagePreview>>
+
+    @POST("/api/getMessages")
+    suspend fun getMessages(
+        @Body messagesRequest: MessagesRequest
+    ): Response<List<Message>>
 
 }
