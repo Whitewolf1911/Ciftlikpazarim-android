@@ -4,24 +4,18 @@ import android.os.Bundle
 import android.view.View
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ViewCompositionStrategy
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.fragment.app.viewModels
@@ -30,6 +24,7 @@ import com.alibasoglu.ciftlikpazarimandroid.core.fragment.BaseFragment
 import com.alibasoglu.ciftlikpazarimandroid.core.fragment.FragmentConfiguration
 import com.alibasoglu.ciftlikpazarimandroid.core.fragment.ToolbarConfiguration
 import com.alibasoglu.ciftlikpazarimandroid.databinding.FragmentMessagesPreviewBinding
+import com.alibasoglu.ciftlikpazarimandroid.messaging.ui.ErrorComposable
 import com.alibasoglu.ciftlikpazarimandroid.utils.viewbinding.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -83,20 +78,7 @@ class MessagesPreviewFragment : BaseFragment(R.layout.fragment_messages_preview)
                     if (state.isLoading) {
                         CircularProgressIndicator(color = Color.Green)
                     } else if (state.error != null) {
-                        Column(horizontalAlignment = CenterHorizontally) {
-                            Icon(
-                                modifier = Modifier.size(60.dp),
-                                painter = painterResource(id = R.drawable.ic_error_24),
-                                contentDescription = null
-                            )
-                            Text(
-                                modifier = Modifier.padding(horizontal = 18.dp),
-                                text = state.error,
-                                fontSize = 24.sp,
-                                textAlign = TextAlign.Center,
-                                fontWeight = FontWeight.Bold
-                            )
-                        }
+                        ErrorComposable(errorText = state.error)
                     } else if (state.messagesPreviews.isEmpty()) {
                         Text(
                             text = getString(R.string.messages_shown_here),

@@ -1,44 +1,53 @@
-package com.alibasoglu.ciftlikpazarimandroid.messaging.ui.messagespreviews
+package com.alibasoglu.ciftlikpazarimandroid.messaging.ui.chat
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.alibasoglu.ciftlikpazarimandroid.core.BaseViewModel
 import com.alibasoglu.ciftlikpazarimandroid.messaging.domain.MessagesRepository
 import com.alibasoglu.ciftlikpazarimandroid.utils.Resource
+import com.alibasoglu.ciftlikpazarimandroid.utils.getOrThrow
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @HiltViewModel
-class MessagesPreviewViewModel @Inject constructor(
-    private val messagesRepository: MessagesRepository
+class ChatViewModel @Inject constructor(
+    private val messagesRepository: MessagesRepository,
+    savedStateHandle: SavedStateHandle
 ) : BaseViewModel() {
 
-    private var _state by mutableStateOf(MessagesPreviewState())
-    val state: MessagesPreviewState
+    private val otherUserId = savedStateHandle.getOrThrow<String>(OTHER_USER_ID_KEY)
+
+    fun getOtherUserId() = otherUserId
+
+    private var _state by mutableStateOf(ChatState())
+    val state: ChatState
         get() = _state
 
+
     init {
-        getMessagesPreview()
+        getMessages(otherUserId)
     }
 
-    fun getMessagesPreview() {
+    fun getMessages(otherUserId: String) {
         viewModelScope.launch {
-            messagesRepository.getMessagesPreviews().collectLatest { result ->
+            messagesRepository.getMessages(otherUserId).collectLatest { result ->
                 when (result) {
                     is Resource.Success -> {
-                        result.data?.let { previews ->
+                        result.data?.let { messages ->
                             _state = _state.copy(
-                                messagesPreviews = previews,
+                                messages = messages,
+                                isLoading = false,
                                 error = null
                             )
                         }
                     }
                     is Resource.Error -> {
-                        _state = _state.copy(isLoading = false, error = result.message)
+                        _state = _state.copy(error = result.message, isLoading = false)
                     }
                     is Resource.Loading -> {
                         _state = _state.copy(isLoading = result.isLoading)
@@ -48,4 +57,11 @@ class MessagesPreviewViewModel @Inject constructor(
         }
     }
 
+    fun sendMessage() {
+        //TODO send message
+    }
+
+    companion object {
+        const val OTHER_USER_ID_KEY = "id"
+    }
 }
