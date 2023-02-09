@@ -19,7 +19,6 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Pending
 import androidx.compose.material.icons.filled.Send
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -61,24 +60,22 @@ internal fun ChatInput(modifier: Modifier = Modifier, onMessageChange: (String) 
                 input = it
             }
         )
-
-        Spacer(modifier = Modifier.width(6.dp))
-
-        FloatingActionButton(
-            modifier = Modifier.size(48.dp),
-            backgroundColor = Color(0xFF4CAF50),
-            onClick = {
-                if (!textEmpty) {
+        if (!textEmpty) {
+            Spacer(modifier = Modifier.width(6.dp))
+            FloatingActionButton(
+                modifier = Modifier.size(48.dp),
+                backgroundColor = Color(0xFF4CAF50),
+                onClick = {
                     onMessageChange(input.text)
                     input = TextFieldValue("")
                 }
+            ) {
+                Icon(
+                    tint = Color.White,
+                    imageVector = Icons.Filled.Send,
+                    contentDescription = null
+                )
             }
-        ) {
-            Icon(
-                tint = Color.White,
-                imageVector = if (textEmpty) Icons.Filled.Pending else Icons.Filled.Send,
-                contentDescription = null
-            )
         }
     }
 }

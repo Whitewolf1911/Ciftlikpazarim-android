@@ -76,9 +76,11 @@ class ChatFragment : BaseFragment(R.layout.fragment_chat) {
                     }
                     ChatInput(
                         onMessageChange = { messageContent ->
-                            messages.add(Message("", "", messageContent))
-                            coroutineScope.launch {
-                                scrollState.animateScrollToItem(messages.size - 1)
+                            if (messageContent.isNotBlank()) {
+                                messages.add(Message("", "", messageContent))
+                                coroutineScope.launch {
+                                    scrollState.animateScrollToItem(messages.size - 1)
+                                }
                             }
                         }
                     )
