@@ -86,5 +86,17 @@
         android:id="@+id/messagesPreviewFragment"
         android:name="com.alibasoglu.ciftlikpazarimandroid.messaging.ui.messagespreviews.MessagesPreviewFragment"
         android:label="MessagesPreviewFragment"
-        tools:layout="@layout/fragment_messages_preview" />
+        tools:layout="@layout/fragment_messages_preview" >
+        <action
+            android:id="@+id/action_messagesPreviewFragment_to_chatFragment"
+            app:destination="@id/chatFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/chatFragment"
+        android:name="com.alibasoglu.ciftlikpazarimandroid.messaging.ui.chat.ChatFragment"
+        android:label="ChatFragment" >
+        <argument
+            android:name="id"
+            app:argType="string" />
+    </fragment>
 </navigation>

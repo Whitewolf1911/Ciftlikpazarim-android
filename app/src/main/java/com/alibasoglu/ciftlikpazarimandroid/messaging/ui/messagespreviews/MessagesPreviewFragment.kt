@@ -2,7 +2,6 @@ package com.alibasoglu.ciftlikpazarimandroid.messaging.ui.messagespreviews
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -111,8 +110,7 @@ class MessagesPreviewFragment : BaseFragment(R.layout.fragment_messages_preview)
     }
 
     private fun navToMessageDetailsFragment(id: String) {
-        //TODO nav to conversation
-        Toast.makeText(context, id, Toast.LENGTH_SHORT).show()
+        nav(MessagesPreviewFragmentDirections.actionMessagesPreviewFragmentToChatFragment(id))
     }
 
 }
