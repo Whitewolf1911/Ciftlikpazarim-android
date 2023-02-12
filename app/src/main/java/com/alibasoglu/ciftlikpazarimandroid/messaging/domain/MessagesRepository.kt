@@ -10,4 +10,6 @@ interface MessagesRepository {
     suspend fun getMessagesPreviews(): Flow<Resource<List<MessagePreview>>>
 
     suspend fun getMessages(otherUserId: String): Flow<Resource<List<Message>>>
+
+    suspend fun sendMessage(otherUserId: String, message: String): Flow<Resource<List<String>>>
 }

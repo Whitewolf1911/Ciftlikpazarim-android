@@ -3,6 +3,7 @@ package com.alibasoglu.ciftlikpazarimandroid.messaging.data
 import com.alibasoglu.ciftlikpazarimandroid.UserObject
 import com.alibasoglu.ciftlikpazarimandroid.messaging.data.model.MessagesPreviewsRequest
 import com.alibasoglu.ciftlikpazarimandroid.messaging.data.model.MessagesRequest
+import com.alibasoglu.ciftlikpazarimandroid.messaging.data.model.SendMessageRequest
 import com.alibasoglu.ciftlikpazarimandroid.messaging.domain.MessagesRepository
 import com.alibasoglu.ciftlikpazarimandroid.messaging.model.Message
 import com.alibasoglu.ciftlikpazarimandroid.messaging.model.MessagePreview
@@ -55,4 +56,25 @@ class MessagesRepositoryImpl(
             }
         }
     }
+
+    override suspend fun sendMessage(otherUserId: String, message: String): Flow<Resource<List<String>>> {
+        return flow {
+            emit(Resource.Loading(isLoading = true))
+            val sendMessageRequest = SendMessageRequest(from = UserObject.id, to = otherUserId, message = message)
+            val response = try {
+                messagingApi.sendMessage(sendMessageRequest = sendMessageRequest)
+            } catch (e: HttpException) {
+                emit(Resource.Error(message = "Bir hata oluştu"))
+                null
+            } catch (e: IOException) {
+                emit(Resource.Error(message = "Bir hata oluştu. İnternet bağlantınızı kontrol edin."))
+                null
+            }
+            response?.let {
+                emit(Resource.Success(response.body()))
+                emit(Resource.Loading(isLoading = false))
+            }
+        }
+    }
+
 }

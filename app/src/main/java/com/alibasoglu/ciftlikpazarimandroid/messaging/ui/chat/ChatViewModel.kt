@@ -5,8 +5,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
+import com.alibasoglu.ciftlikpazarimandroid.UserObject
 import com.alibasoglu.ciftlikpazarimandroid.core.BaseViewModel
 import com.alibasoglu.ciftlikpazarimandroid.messaging.domain.MessagesRepository
+import com.alibasoglu.ciftlikpazarimandroid.messaging.model.Message
 import com.alibasoglu.ciftlikpazarimandroid.utils.Resource
 import com.alibasoglu.ciftlikpazarimandroid.utils.getOrThrow
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -24,10 +26,7 @@ class ChatViewModel @Inject constructor(
 
     fun getOtherUserId() = otherUserId
 
-    private var _state by mutableStateOf(ChatState())
-    val state: ChatState
-        get() = _state
-
+    var state by mutableStateOf(ChatState())
 
     init {
         getMessages(otherUserId)
@@ -39,26 +38,49 @@ class ChatViewModel @Inject constructor(
                 when (result) {
                     is Resource.Success -> {
                         result.data?.let { messages ->
-                            _state = _state.copy(
-                                messages = messages,
+                            state = state.copy(
+                                messages = messages.reversed(),
                                 isLoading = false,
                                 error = null
                             )
                         }
                     }
                     is Resource.Error -> {
-                        _state = _state.copy(error = result.message, isLoading = false)
+                        state = state.copy(error = result.message, isLoading = false)
                     }
                     is Resource.Loading -> {
-                        _state = _state.copy(isLoading = result.isLoading)
+                        state = state.copy(isLoading = result.isLoading)
                     }
                 }
             }
         }
     }
 
-    fun sendMessage() {
-        //TODO send message
+    fun sendMessage(message: String) {
+        viewModelScope.launch {
+            messagesRepository
+                .sendMessage(message = message, otherUserId = otherUserId).collectLatest { result ->
+                    when (result) {
+                        is Resource.Success -> {
+                            result.data?.let {
+                                UserObject.contacts = result.data
+                            }
+                            val messagesList = state.messages.toMutableList()
+                            messagesList.add(
+                                Message(
+                                    from = UserObject.id,
+                                    message = message,
+                                    to = otherUserId
+                                )
+                            )
+                            val updatedList = messagesList.toList()
+                            state = state.copy(messages = updatedList)
+                        }
+                        is Resource.Error -> Unit
+                        is Resource.Loading -> Unit
+                    }
+                }
+        }
     }
 
     companion object {
