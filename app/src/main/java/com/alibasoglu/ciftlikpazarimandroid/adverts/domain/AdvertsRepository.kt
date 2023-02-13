@@ -1,7 +1,9 @@
 package com.alibasoglu.ciftlikpazarimandroid.adverts.domain
 
 import androidx.paging.Pager
+import com.alibasoglu.ciftlikpazarimandroid.User
 import com.alibasoglu.ciftlikpazarimandroid.utils.Resource
+import kotlinx.coroutines.flow.Flow
 
 interface AdvertsRepository {
 
@@ -16,5 +18,7 @@ interface AdvertsRepository {
     ): Resource<String>
 
     fun getAdvertsPager(category: String?, searchQuery: String?): Pager<Int, Advert>
+
+    suspend fun getUserById(userId: String): Flow<Resource<User>>
 
 }

@@ -61,6 +61,9 @@
         <action
             android:id="@+id/action_advertDetailsFragment_to_advertImageFragment"
             app:destination="@id/advertImageFragment" />
+        <action
+            android:id="@+id/action_advertDetailsFragment_to_chatFragment"
+            app:destination="@id/chatFragment" />
     </fragment>
     <fragment
         android:id="@+id/searchAdvertsFragment"
