@@ -52,5 +52,8 @@ class NewAdvertViewModel @Inject constructor(
             }
         }
     }
+    fun clearNewAdvertState(){
+        _newAdvertStateFlow.value = Resource.Loading(isLoading = false)
+    }
 
 }

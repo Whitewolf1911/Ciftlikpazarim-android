@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/favoritesFragment"
-        android:name="com.alibasoglu.ciftlikpazarimandroid.FavoritesFragment"
+        android:name="com.alibasoglu.ciftlikpazarimandroid.adverts.ui.FavoritesFragment"
         android:label="FavoritesFragment"
         tools:layout="@layout/fragment_favorites" />
     <fragment
@@ -61,12 +61,15 @@
         <action
             android:id="@+id/action_advertDetailsFragment_to_advertImageFragment"
             app:destination="@id/advertImageFragment" />
+        <action
+            android:id="@+id/action_advertDetailsFragment_to_chatFragment"
+            app:destination="@id/chatFragment" />
     </fragment>
     <fragment
         android:id="@+id/searchAdvertsFragment"
-        tools:layout="@layout/fragment_search_adverts"
         android:name="com.alibasoglu.ciftlikpazarimandroid.adverts.ui.searchadverts.SearchAdvertsFragment"
-        android:label="SearchAdvertsFragment" >
+        android:label="SearchAdvertsFragment"
+        tools:layout="@layout/fragment_search_adverts">
         <argument
             android:name="searchQuery"
             app:argType="string" />
@@ -77,9 +80,26 @@
     <fragment
         android:id="@+id/advertImageFragment"
         android:name="com.alibasoglu.ciftlikpazarimandroid.adverts.ui.advertdetails.AdvertImageFragment"
-        android:label="AdvertImageFragment" >
+        android:label="AdvertImageFragment">
         <argument
             android:name="advert_image_data"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/messagesPreviewFragment"
+        android:name="com.alibasoglu.ciftlikpazarimandroid.messaging.ui.messagespreviews.MessagesPreviewFragment"
+        android:label="MessagesPreviewFragment"
+        tools:layout="@layout/fragment_messages_preview" >
+        <action
+            android:id="@+id/action_messagesPreviewFragment_to_chatFragment"
+            app:destination="@id/chatFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/chatFragment"
+        android:name="com.alibasoglu.ciftlikpazarimandroid.messaging.ui.chat.ChatFragment"
+        android:label="ChatFragment" >
+        <argument
+            android:name="id"
             app:argType="string" />
     </fragment>
 </navigation>

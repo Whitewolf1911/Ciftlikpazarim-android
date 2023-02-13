@@ -17,7 +17,6 @@ import com.alibasoglu.ciftlikpazarimandroid.core.fragment.ToolbarConfiguration
 import com.alibasoglu.ciftlikpazarimandroid.databinding.FragmentCategoryAdvertsBinding
 import com.alibasoglu.ciftlikpazarimandroid.utils.lifecycle.observe
 import com.alibasoglu.ciftlikpazarimandroid.utils.viewbinding.viewBinding
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.flow.collectLatest
@@ -56,7 +55,7 @@ class CategoryAdvertsFragment : BaseFragment(R.layout.fragment_category_adverts)
     }
 
     private fun initUi() {
-        activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)?.isVisible = false
+        hideBottomNavBar()
         getToolbar()?.setTitle(categoryAdvertsViewModel.getCategoryName())
         with(binding) {
             advertsRecyclerView.adapter = advertsAdapter.withLoadStateFooter(

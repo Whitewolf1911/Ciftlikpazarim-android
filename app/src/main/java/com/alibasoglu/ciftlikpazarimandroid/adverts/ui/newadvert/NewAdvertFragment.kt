@@ -14,6 +14,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.alibasoglu.ciftlikpazarimandroid.R
+import com.alibasoglu.ciftlikpazarimandroid.UserObject
 import com.alibasoglu.ciftlikpazarimandroid.core.fragment.BaseFragment
 import com.alibasoglu.ciftlikpazarimandroid.core.fragment.FragmentConfiguration
 import com.alibasoglu.ciftlikpazarimandroid.core.fragment.ToolbarConfiguration
@@ -55,6 +56,11 @@ class NewAdvertFragment : BaseFragment(R.layout.fragment_new_advert) {
         super.onViewCreated(view, savedInstanceState)
         initUi()
         initObservers()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        newAdvertViewModel.clearNewAdvertState()
     }
 
     private fun initUi() {
@@ -156,7 +162,7 @@ class NewAdvertFragment : BaseFragment(R.layout.fragment_new_advert) {
                 price = price,
                 category = categorySpinner.selectedItem as String,
                 city = citySpinner.selectedItem as String,
-                userId = "userid123"
+                userId = UserObject.id
             )
         }
     }

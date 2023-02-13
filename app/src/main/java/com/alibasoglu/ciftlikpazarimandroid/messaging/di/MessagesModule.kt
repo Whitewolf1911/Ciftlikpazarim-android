@@ -1,9 +1,9 @@
-package com.alibasoglu.ciftlikpazarimandroid.adverts.di
+package com.alibasoglu.ciftlikpazarimandroid.messaging.di
 
-import com.alibasoglu.ciftlikpazarimandroid.adverts.data.AdvertsApi
-import com.alibasoglu.ciftlikpazarimandroid.adverts.data.AdvertsRepositoryImpl
-import com.alibasoglu.ciftlikpazarimandroid.adverts.domain.AdvertsRepository
 import com.alibasoglu.ciftlikpazarimandroid.di.AppModule
+import com.alibasoglu.ciftlikpazarimandroid.messaging.data.MessagesRepositoryImpl
+import com.alibasoglu.ciftlikpazarimandroid.messaging.data.MessagingApi
+import com.alibasoglu.ciftlikpazarimandroid.messaging.domain.MessagesRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -14,13 +14,14 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.create
 
+
 @Module
 @InstallIn(SingletonComponent::class)
-object AdvertModule {
+object MessagesModule {
 
     @Provides
     @Singleton
-    fun provideAdvertsApi(okHttpClient: OkHttpClient): AdvertsApi {
+    fun provideMessagingApi(okHttpClient: OkHttpClient): MessagingApi {
         return Retrofit.Builder()
             .baseUrl(AppModule.BASE_URL)
             .client(okHttpClient)
@@ -31,7 +32,7 @@ object AdvertModule {
 
     @Provides
     @Singleton
-    fun provideAdvertsRepository(api: AdvertsApi): AdvertsRepository {
-        return AdvertsRepositoryImpl(api)
+    fun provideMessagesRepository(messagingApi: MessagingApi): MessagesRepository {
+        return MessagesRepositoryImpl(messagingApi)
     }
 }

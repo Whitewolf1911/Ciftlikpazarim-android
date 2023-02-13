@@ -1,7 +1,7 @@
 package com.alibasoglu.ciftlikpazarimandroid
 
 data class User(
-    val id: String,
+    val _id: String?,
     val name: String,
     val email: String,
     val phoneNumber: String,

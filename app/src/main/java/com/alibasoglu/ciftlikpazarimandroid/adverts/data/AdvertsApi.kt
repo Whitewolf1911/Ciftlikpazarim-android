@@ -1,5 +1,6 @@
 package com.alibasoglu.ciftlikpazarimandroid.adverts.data
 
+import com.alibasoglu.ciftlikpazarimandroid.User
 import com.alibasoglu.ciftlikpazarimandroid.adverts.domain.Advert
 import okhttp3.ResponseBody
 import retrofit2.Response
@@ -24,5 +25,11 @@ interface AdvertsApi {
     suspend fun getSearchQueryAdverts(
         @Query("search") searchQuery: String, @Query("page") page: Int
     ): Response<List<Advert>>
+
+    //TODO (Refactor) move this to UsersApi
+    @GET("get-user-by-id")
+    suspend fun getUserById(
+        @Query("userID") userId: String
+    ): Response<User>
 
 }

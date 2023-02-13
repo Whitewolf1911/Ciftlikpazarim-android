@@ -199,6 +199,26 @@
             app:layout_constraintTop_toBottomOf="@id/advertOwnerTextView"
             tools:text="5345456789" />
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/sendMessageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/send_message"
+            android:textAllCaps="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/addToFavoritesButton"
+            app:layout_constraintTop_toTopOf="@id/addToFavoritesButton" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/addToFavoritesButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/add_to_favorites"
+            android:textAllCaps="false"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/phoneText" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

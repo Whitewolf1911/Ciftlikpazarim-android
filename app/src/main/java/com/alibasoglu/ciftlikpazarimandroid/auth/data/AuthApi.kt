@@ -5,6 +5,7 @@ import com.alibasoglu.ciftlikpazarimandroid.auth.SigninRequest
 import com.alibasoglu.ciftlikpazarimandroid.auth.SignupRequest
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
 
@@ -24,4 +25,9 @@ interface AuthApi {
     suspend fun authenticate(
         @Header("x-auth-token") authToken: String
     ): Response<Boolean>
+
+    @GET("/")
+    suspend fun getUserData(
+        @Header("x-auth-token") authToken: String
+    ): Response<User>
 }

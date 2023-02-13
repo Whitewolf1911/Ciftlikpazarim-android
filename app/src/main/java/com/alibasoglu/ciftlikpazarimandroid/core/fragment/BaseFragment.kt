@@ -35,4 +35,12 @@ abstract class BaseFragment(@LayoutRes layoutResId: Int) : Fragment(layoutResId)
     protected fun nav(directions: NavDirections, onError: (() -> Unit)? = null) {
         mainActivity?.nav(directions, onError)
     }
+
+    protected fun hideBottomNavBar() {
+        mainActivity?.hideNavBar()
+    }
+
+    protected fun showBottomNavBar() {
+        mainActivity?.showNavBar()
+    }
 }
