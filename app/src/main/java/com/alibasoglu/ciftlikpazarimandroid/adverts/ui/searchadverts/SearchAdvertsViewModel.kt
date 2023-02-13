@@ -1,6 +1,5 @@
 package com.alibasoglu.ciftlikpazarimandroid.adverts.ui.searchadverts
 
-import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
@@ -34,7 +33,6 @@ class SearchAdvertsViewModel @Inject constructor(
     }
 
     fun getSearchedAdverts(searchQuery: String) {
-        Log.d("tagi", "get search triggered")
         viewModelScope.launch {
             advertsRepository.getAdvertsPager(category = null, searchQuery = searchQuery)
                 .flow
