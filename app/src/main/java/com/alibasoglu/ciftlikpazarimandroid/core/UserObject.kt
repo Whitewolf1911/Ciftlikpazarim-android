@@ -1,4 +1,6 @@
-package com.alibasoglu.ciftlikpazarimandroid
+package com.alibasoglu.ciftlikpazarimandroid.core
+
+import com.alibasoglu.ciftlikpazarimandroid.User
 
 object UserObject {
     var id: String = ""

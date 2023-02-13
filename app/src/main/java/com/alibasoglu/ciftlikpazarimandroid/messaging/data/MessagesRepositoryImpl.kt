@@ -1,6 +1,6 @@
 package com.alibasoglu.ciftlikpazarimandroid.messaging.data
 
-import com.alibasoglu.ciftlikpazarimandroid.UserObject
+import com.alibasoglu.ciftlikpazarimandroid.core.UserObject
 import com.alibasoglu.ciftlikpazarimandroid.messaging.data.model.MessagesPreviewsRequest
 import com.alibasoglu.ciftlikpazarimandroid.messaging.data.model.MessagesRequest
 import com.alibasoglu.ciftlikpazarimandroid.messaging.data.model.SendMessageRequest

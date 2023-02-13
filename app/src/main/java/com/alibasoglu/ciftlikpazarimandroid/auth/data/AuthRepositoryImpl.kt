@@ -6,7 +6,7 @@ import com.alibasoglu.ciftlikpazarimandroid.auth.AuthResult
 import com.alibasoglu.ciftlikpazarimandroid.auth.SigninRequest
 import com.alibasoglu.ciftlikpazarimandroid.auth.SignupRequest
 import com.alibasoglu.ciftlikpazarimandroid.auth.domain.AuthRepository
-import com.alibasoglu.ciftlikpazarimandroid.setUserObjectFromModel
+import com.alibasoglu.ciftlikpazarimandroid.core.setUserObjectFromModel
 import retrofit2.HttpException
 
 class AuthRepositoryImpl(
