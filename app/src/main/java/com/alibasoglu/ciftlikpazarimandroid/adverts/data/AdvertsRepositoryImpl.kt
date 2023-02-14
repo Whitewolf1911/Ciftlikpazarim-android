@@ -1,6 +1,5 @@
 package com.alibasoglu.ciftlikpazarimandroid.adverts.data
 
-import android.util.Log
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import com.alibasoglu.ciftlikpazarimandroid.User
@@ -65,17 +64,13 @@ class AdvertsRepositoryImpl(
             val response = try {
                 api.getUserById(userId = userId)
             } catch (e: HttpException) {
-                Log.d("mylog", e.toString())
                 emit(Resource.Error(message = "Bir hata oluştu"))
                 null
             } catch (e: IOException) {
-                Log.d("mylog", e.toString())
                 emit(Resource.Error(message = "Bir hata oluştu. İnternet bağlantınızı kontrol edin."))
                 null
             }
             response?.let {
-                Log.d("mylog", response.toString())
-
                 emit(Resource.Success(data = response.body()))
                 emit(Resource.Loading(isLoading = false))
             }

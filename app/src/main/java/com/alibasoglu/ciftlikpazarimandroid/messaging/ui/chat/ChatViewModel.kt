@@ -5,8 +5,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
-import com.alibasoglu.ciftlikpazarimandroid.UserObject
 import com.alibasoglu.ciftlikpazarimandroid.core.BaseViewModel
+import com.alibasoglu.ciftlikpazarimandroid.core.UserObject
 import com.alibasoglu.ciftlikpazarimandroid.messaging.domain.MessagesRepository
 import com.alibasoglu.ciftlikpazarimandroid.messaging.model.Message
 import com.alibasoglu.ciftlikpazarimandroid.utils.Resource

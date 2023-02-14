@@ -3,6 +3,7 @@ package com.alibasoglu.ciftlikpazarimandroid.auth.data
 import com.alibasoglu.ciftlikpazarimandroid.User
 import com.alibasoglu.ciftlikpazarimandroid.auth.SigninRequest
 import com.alibasoglu.ciftlikpazarimandroid.auth.SignupRequest
+import com.alibasoglu.ciftlikpazarimandroid.auth.ui.TokenCheckRequest
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -30,4 +31,11 @@ interface AuthApi {
     suspend fun getUserData(
         @Header("x-auth-token") authToken: String
     ): Response<User>
+
+    @POST("check-device-token")
+    suspend fun checkUpdateDeviceToken(
+        @Header("x-auth-token") authToken: String,
+        @Body request: TokenCheckRequest
+    ): Response<String>
+
 }

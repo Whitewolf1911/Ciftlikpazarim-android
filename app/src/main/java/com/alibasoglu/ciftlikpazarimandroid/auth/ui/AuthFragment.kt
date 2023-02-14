@@ -50,7 +50,6 @@ class AuthFragment : BaseFragment(R.layout.fragment_auth) {
                         email = signupEmailEditText.text.toString(),
                         name = nameEditText.text.toString(),
                         phoneNumber = phoneNumberEditText.text.toString(),
-                        deviceToken = "devicetoken",
                         password = signupPasswordEditText.text.toString()
                     )
                 }

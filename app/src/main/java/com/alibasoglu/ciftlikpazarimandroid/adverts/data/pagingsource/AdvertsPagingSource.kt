@@ -1,6 +1,5 @@
 package com.alibasoglu.ciftlikpazarimandroid.adverts.data.pagingsource
 
-import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.alibasoglu.ciftlikpazarimandroid.adverts.data.AdvertsApi
@@ -40,10 +39,8 @@ class AdvertsPagingSource(
                 nextKey = nextKey
             )
         } catch (e: IOException) {
-            Log.d("ioexception", e.toString())
             LoadResult.Error(e)
         } catch (e: HttpException) {
-            Log.d("http exception", e.toString())
             LoadResult.Error(e)
         }
 

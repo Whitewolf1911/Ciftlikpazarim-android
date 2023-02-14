@@ -1,6 +1,5 @@
 package com.alibasoglu.ciftlikpazarimandroid.adverts.ui.advertdetails
 
-import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.alibasoglu.ciftlikpazarimandroid.User
@@ -56,7 +55,6 @@ class AdvertDetailsViewModel @Inject constructor(
                     is Resource.Success -> {
                         result.data?.let { user ->
                             _advertOwnerState.value = user
-                            Log.d("mylog", user.phoneNumber + user.name)
                         }
                     }
                     is Resource.Error -> {}
