@@ -9,8 +9,7 @@ interface AuthRepository {
         email: String,
         password: String,
         name: String,
-        phoneNumber: String,
-        deviceToken: String
+        phoneNumber: String
     ): AuthResult<Unit>
 
     suspend fun signIn(email: String, password: String): AuthResult<Unit>
@@ -18,5 +17,8 @@ interface AuthRepository {
     suspend fun authenticate(): AuthResult<Unit>
 
     suspend fun getUserInfo(): User?
+
+    //TODO refactor move to Users module
+    suspend fun checkUpdateDeviceToken()
 
 }

@@ -1,11 +1,14 @@
 package com.alibasoglu.ciftlikpazarimandroid.auth.data
 
 import android.content.SharedPreferences
+import android.util.Log
 import com.alibasoglu.ciftlikpazarimandroid.User
 import com.alibasoglu.ciftlikpazarimandroid.auth.AuthResult
 import com.alibasoglu.ciftlikpazarimandroid.auth.SigninRequest
 import com.alibasoglu.ciftlikpazarimandroid.auth.SignupRequest
 import com.alibasoglu.ciftlikpazarimandroid.auth.domain.AuthRepository
+import com.alibasoglu.ciftlikpazarimandroid.auth.ui.TokenCheckRequest
+import com.alibasoglu.ciftlikpazarimandroid.core.UserObject
 import com.alibasoglu.ciftlikpazarimandroid.core.setUserObjectFromModel
 import retrofit2.HttpException
 
@@ -18,18 +21,17 @@ class AuthRepositoryImpl(
         email: String,
         password: String,
         name: String,
-        phoneNumber: String,
-        deviceToken: String
+        phoneNumber: String
     ): AuthResult<Unit> {
         return try {
+            val deviceToken = sharedPreferences.getString("deviceToken", "") ?: ""
             val result = api.signUp(
                 request = SignupRequest(
                     email = email,
                     password = password,
                     name = name,
                     phoneNumber = phoneNumber,
-                    deviceToken = "device_token-123"
-                    // TODO device token will be implemented after firebase
+                    deviceToken = deviceToken
                 )
             )
             if (result.isSuccessful) {
@@ -60,6 +62,7 @@ class AuthRepositoryImpl(
                 if (user != null) {
                     setUserObjectFromModel(user)
                 }
+                checkUpdateDeviceToken()
                 AuthResult.Authorized()
             } else {
                 AuthResult.Unauthorized()
@@ -80,6 +83,7 @@ class AuthRepositoryImpl(
                 val userData = getUserInfo()
                 userData?.let { user ->
                     setUserObjectFromModel(user)
+                    checkUpdateDeviceToken()
                     return AuthResult.Authorized()
                 }
                 AuthResult.Unauthorized()
@@ -107,6 +111,18 @@ class AuthRepositoryImpl(
             null
         } catch (e: Exception) {
             null
+        }
+    }
+
+    override suspend fun checkUpdateDeviceToken() {
+        try {
+            val deviceToken = sharedPreferences.getString("deviceToken", "") ?: ""
+            val authToken = sharedPreferences.getString(AUTH_TOKEN_PREFERENCE_NAME, "") ?: ""
+
+            val request = TokenCheckRequest(id = UserObject.id, token = deviceToken)
+            api.checkUpdateDeviceToken(request = request, authToken = authToken)
+        } catch (e: Exception) {
+            Log.d("exception", " Exception occurred during token check/update request")
         }
     }
 

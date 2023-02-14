@@ -33,7 +33,6 @@ class AuthViewModel @Inject constructor(
         name: String,
         email: String,
         password: String,
-        deviceToken: String,
         phoneNumber: String
     ) {
         viewModelScope.launch {
@@ -41,8 +40,7 @@ class AuthViewModel @Inject constructor(
                 email = email,
                 password = password,
                 name = name,
-                phoneNumber = phoneNumber,
-                deviceToken = deviceToken
+                phoneNumber = phoneNumber
             )
             when (result) {
                 is AuthResult.Authorized -> {
