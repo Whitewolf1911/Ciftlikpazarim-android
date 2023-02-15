@@ -29,12 +29,20 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        setupNavigation()
+        saveFCMToken()
+    }
+
+    private fun setupNavigation() {
         navController =
             (supportFragmentManager.findFragmentById(binding.navigationHostFragment.id) as NavHostFragment).navController
         binding.bottomNavigationView.apply {
             setupWithNavController(navController)
             setOnItemReselectedListener {} // To prevent reselect item and resetting selected fragment
         }
+    }
+
+    private fun saveFCMToken() {
         FirebaseMessaging.getInstance().token.addOnSuccessListener { deviceToken ->
             UserObject.deviceToken = deviceToken
             mainViewModel.saveDeviceTokenToSharedPref(deviceToken)

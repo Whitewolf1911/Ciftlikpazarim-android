@@ -74,5 +74,5 @@ object AppModule {
         return AuthRepositoryImpl(api, prefs)
     }
 
-    const val BASE_URL = "http://192.168.1.65:3000/"
+    const val BASE_URL = "http://192.168.0.29:3000/"
 }
