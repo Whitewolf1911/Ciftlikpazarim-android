@@ -82,7 +82,31 @@ class AdvertsRepositoryImpl(
         return flow {
             emit(Resource.Loading(isLoading = true))
             val result = try {
-                val response = api.addAdvertToFavorites(FavoritesRequest(advertId = advertId))
+                val response = api.addAdvertToFavorites(AddToFavoritesRequest(advertId = advertId))
+                response.body()?.let { userResponse ->
+                    UserObject.favorites = userResponse.favorites
+                }
+                response
+            } catch (e: HttpException) {
+                emit(Resource.Error(message = "Bir hata oluştu"))
+                null
+            } catch (e: IOException) {
+                emit(Resource.Error(message = "Bir hata oluştu. İnternet bağlantınızı kontrol edin."))
+                null
+            }
+            result?.let {
+                emit(Resource.Success(data = null))
+                emit(Resource.Loading(isLoading = false))
+            }
+        }
+    }
+
+    override suspend fun removeAdvertFromFavorites(advertId: String): Flow<Resource<Unit>> {
+        return flow {
+            emit(Resource.Loading(isLoading = true))
+            val result = try {
+                val request = RemoveFavoriteRequest(advertId = advertId, userId = UserObject.id)
+                val response = api.removeAdvertFromFavorites(request)
                 response.body()?.let { userResponse ->
                     UserObject.favorites = userResponse.favorites
                 }

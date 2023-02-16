@@ -1,5 +1,5 @@
 package com.alibasoglu.ciftlikpazarimandroid.adverts.data
 
-data class FavoritesRequest(
+data class AddToFavoritesRequest(
     val advertId: String
 )

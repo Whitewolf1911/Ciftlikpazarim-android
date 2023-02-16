@@ -44,6 +44,10 @@ class AdvertDetailsViewModel @Inject constructor(
     val addToFavoritesState: StateFlow<Resource<Unit>>
         get() = _addToFavoritesState
 
+    private var _removeFromFavoritesState = MutableStateFlow<Resource<Unit>>(Resource.Loading(isLoading = false))
+    val removeFromFavoritesState: StateFlow<Resource<Unit>>
+        get() = _removeFromFavoritesState
+
     fun getAdvertDetails(): Advert {
         return advert
     }
@@ -88,4 +92,23 @@ class AdvertDetailsViewModel @Inject constructor(
         }
     }
 
+    fun removeAdvertFromFavorites() {
+        viewModelScope.launch {
+            advert._id?.let { id ->
+                advertsRepository.removeAdvertFromFavorites(advertId = id).collectLatest { result ->
+                    when (result) {
+                        is Resource.Success -> {
+                            _removeFromFavoritesState.value = Resource.Success(data = null)
+                        }
+                        is Resource.Error -> {
+                            _removeFromFavoritesState.value = Resource.Error("Bir hata oluştu. Daha sonra tekrar deneyiniz.")
+                        }
+                        is Resource.Loading -> {
+                            _removeFromFavoritesState.value = Resource.Loading(isLoading = result.isLoading)
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

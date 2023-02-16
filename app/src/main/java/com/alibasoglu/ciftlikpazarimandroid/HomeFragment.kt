@@ -3,13 +3,11 @@ package com.alibasoglu.ciftlikpazarimandroid
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.widget.SearchView
-import androidx.core.view.isVisible
 import com.alibasoglu.ciftlikpazarimandroid.core.fragment.BaseFragment
 import com.alibasoglu.ciftlikpazarimandroid.core.fragment.FragmentConfiguration
 import com.alibasoglu.ciftlikpazarimandroid.core.fragment.ToolbarConfiguration
 import com.alibasoglu.ciftlikpazarimandroid.databinding.FragmentHomeBinding
 import com.alibasoglu.ciftlikpazarimandroid.utils.viewbinding.viewBinding
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -27,7 +25,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
     }
 
     private fun initUi() {
-        activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)?.isVisible = true
+        showBottomNavBar()
         with(binding) {
             searchView.apply {
                 maxWidth = Int.MAX_VALUE

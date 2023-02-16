@@ -5,11 +5,13 @@ import android.net.Uri
 import android.os.Bundle
 import android.telephony.PhoneNumberUtils
 import android.view.View
-import androidx.core.view.isVisible
+import androidx.core.content.ContextCompat.getColor
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import com.alibasoglu.ciftlikpazarimandroid.R
+import com.alibasoglu.ciftlikpazarimandroid.core.UserObject
 import com.alibasoglu.ciftlikpazarimandroid.core.fragment.BaseFragment
 import com.alibasoglu.ciftlikpazarimandroid.core.fragment.FragmentConfiguration
 import com.alibasoglu.ciftlikpazarimandroid.core.fragment.ToolbarConfiguration
@@ -19,7 +21,8 @@ import com.alibasoglu.ciftlikpazarimandroid.utils.decodeBase64Image
 import com.alibasoglu.ciftlikpazarimandroid.utils.lifecycle.observe
 import com.alibasoglu.ciftlikpazarimandroid.utils.showToast
 import com.alibasoglu.ciftlikpazarimandroid.utils.viewbinding.viewBinding
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.progressindicator.CircularProgressIndicatorSpec
+import com.google.android.material.progressindicator.IndeterminateDrawable
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 import kotlinx.coroutines.flow.collectLatest
@@ -37,6 +40,12 @@ class AdvertDetailsFragment : BaseFragment(R.layout.fragment_advert_details) {
 
     private val advertDetailsViewModel by viewModels<AdvertDetailsViewModel>()
 
+    private var isAdvertFavorite: Boolean = false
+
+    private lateinit var circularProgressIndicatorSpec: CircularProgressIndicatorSpec
+
+    private lateinit var progressIndicatorDrawable: IndeterminateDrawable<CircularProgressIndicatorSpec>
+
     override val fragmentConfiguration = FragmentConfiguration(toolbarConfiguration)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -46,10 +55,24 @@ class AdvertDetailsFragment : BaseFragment(R.layout.fragment_advert_details) {
     }
 
     private fun initUi() {
-        activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)?.isVisible = false
+        hideBottomNavBar()
         val advertDetails = advertDetailsViewModel.getAdvertDetails()
         val advertImageData = advertDetails.images[0]
         val price = "${advertDetails.price} TL"
+
+        if (UserObject.favorites.contains(advertDetails._id)) {
+            isAdvertFavorite = true
+        }
+
+        circularProgressIndicatorSpec =
+            CircularProgressIndicatorSpec(
+                requireContext(), null, 0,
+                com.google.android.material.R.style.Widget_Material3_CircularProgressIndicator_ExtraSmall
+            )
+        progressIndicatorDrawable =
+            IndeterminateDrawable.createCircularDrawable(requireContext(), circularProgressIndicatorSpec).also {
+                it.setColorFilter(getColor(requireContext(), R.color.white), android.graphics.PorterDuff.Mode.SRC_IN)
+            }
 
         with(binding) {
             advertImageView.setImageBitmap(decodeBase64Image(advertImageData))
@@ -80,8 +103,20 @@ class AdvertDetailsFragment : BaseFragment(R.layout.fragment_advert_details) {
                 navToChatScreen()
             }
 
-            addToFavoritesButton.setOnClickListener {
-                advertDetailsViewModel.addAdvertToFavorites()
+            addToFavoritesButton.apply {
+                if (isAdvertFavorite) {
+                    text = getString(R.string.remove_from_favorites)
+                    icon = ResourcesCompat.getDrawable(resources, R.drawable.ic_favorite_filled, null)
+                } else {
+                    icon = ResourcesCompat.getDrawable(resources, R.drawable.ic_favorites, null)
+                }
+                setOnClickListener {
+                    if (isAdvertFavorite) {
+                        advertDetailsViewModel.removeAdvertFromFavorites()
+                    } else {
+                        advertDetailsViewModel.addAdvertToFavorites()
+                    }
+                }
             }
         }
     }
@@ -106,8 +141,12 @@ class AdvertDetailsFragment : BaseFragment(R.layout.fragment_advert_details) {
             advertDetailsViewModel.addToFavoritesState.collectLatest { result ->
                 when (result) {
                     is Resource.Success -> {
+                        isAdvertFavorite = true
                         context?.showToast(getString(R.string.added_to_favorites))
-                        //TODO show remove from the favorites button
+                        binding.addToFavoritesButton.apply {
+                            text = getString(R.string.remove_from_favorites)
+                            icon = ResourcesCompat.getDrawable(resources, R.drawable.ic_favorite_filled, null)
+                        }
                     }
                     is Resource.Error -> {
                         result.message?.let {
@@ -115,9 +154,38 @@ class AdvertDetailsFragment : BaseFragment(R.layout.fragment_advert_details) {
                         }
                     }
                     is Resource.Loading -> {
-                        //TODO show progress bar inside the button
+                        if (result.isLoading) {
+                            binding.addToFavoritesButton.apply {
+                                icon = progressIndicatorDrawable
+                            }
+                        }
                     }
-
+                }
+            }
+        }
+        viewLifecycleOwner.observe {
+            advertDetailsViewModel.removeFromFavoritesState.collectLatest { result ->
+                when (result) {
+                    is Resource.Success -> {
+                        isAdvertFavorite = false
+                        context?.showToast(getString(R.string.removed_from_favorites))
+                        binding.addToFavoritesButton.apply {
+                            text = getString(R.string.add_to_favorites)
+                            icon = ResourcesCompat.getDrawable(resources, R.drawable.ic_favorites, null)
+                        }
+                    }
+                    is Resource.Error -> {
+                        result.message?.let {
+                            context?.showToast(it)
+                        }
+                    }
+                    is Resource.Loading -> {
+                        if (result.isLoading) {
+                            binding.addToFavoritesButton.apply {
+                                icon = progressIndicatorDrawable
+                            }
+                        }
+                    }
                 }
             }
         }
