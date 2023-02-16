@@ -3,6 +3,9 @@ package com.alibasoglu.ciftlikpazarimandroid.adverts.data
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import com.alibasoglu.ciftlikpazarimandroid.User
+import com.alibasoglu.ciftlikpazarimandroid.adverts.data.model.AddToFavoritesRequest
+import com.alibasoglu.ciftlikpazarimandroid.adverts.data.model.GetFavoritesRequest
+import com.alibasoglu.ciftlikpazarimandroid.adverts.data.model.RemoveFavoriteRequest
 import com.alibasoglu.ciftlikpazarimandroid.adverts.data.pagingsource.AdvertsPagingSource
 import com.alibasoglu.ciftlikpazarimandroid.adverts.domain.Advert
 import com.alibasoglu.ciftlikpazarimandroid.adverts.domain.AdvertsRepository
@@ -120,6 +123,27 @@ class AdvertsRepositoryImpl(
             }
             result?.let {
                 emit(Resource.Success(data = null))
+                emit(Resource.Loading(isLoading = false))
+            }
+        }
+    }
+
+    override suspend fun getFavoriteAdverts(): Flow<Resource<List<Advert>>> {
+        return flow {
+            emit(Resource.Loading(isLoading = true))
+            val result = try {
+                val request = GetFavoritesRequest(uid = UserObject.id)
+                val response = api.getFavoriteAdverts(request)
+                response
+            } catch (e: HttpException) {
+                emit(Resource.Error(message = "Bir hata oluştu"))
+                null
+            } catch (e: IOException) {
+                emit(Resource.Error(message = "Bir hata oluştu. İnternet bağlantınızı kontrol edin."))
+                null
+            }
+            result?.body()?.let { listOfAdverts ->
+                emit(Resource.Success(data = listOfAdverts))
                 emit(Resource.Loading(isLoading = false))
             }
         }

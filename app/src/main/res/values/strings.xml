@@ -48,6 +48,7 @@
     <string name="added_to_favorites">İlan favorilere eklendi.</string>
     <string name="remove_from_favorites">Favorilerden Kaldır</string>
     <string name="removed_from_favorites">İlan favorilerden kaldırıldı.</string>
+    <string name="your_favorites_here">Favorileriniz burada gözükür</string>
 
 
     <string-array name="categories">

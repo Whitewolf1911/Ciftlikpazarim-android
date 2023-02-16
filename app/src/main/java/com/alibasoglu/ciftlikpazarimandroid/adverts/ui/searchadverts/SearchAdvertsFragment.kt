@@ -35,7 +35,7 @@ class SearchAdvertsFragment : BaseFragment(R.layout.fragment_search_adverts) {
 
     private val binding by viewBinding(FragmentSearchAdvertsBinding::bind)
 
-    private val advertsAdapterListener = object : AdvertsAdapter.CategoryAdvertsAdapterListener {
+    private val advertsAdapterListener = object : AdvertsAdapter.AdvertsAdapterListener {
         override fun onAdvertClick(advert: Advert) {
             navToAdvertDetailsFragment(advert)
         }

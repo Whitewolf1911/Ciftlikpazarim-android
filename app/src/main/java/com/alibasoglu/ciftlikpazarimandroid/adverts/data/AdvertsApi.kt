@@ -1,6 +1,9 @@
 package com.alibasoglu.ciftlikpazarimandroid.adverts.data
 
 import com.alibasoglu.ciftlikpazarimandroid.User
+import com.alibasoglu.ciftlikpazarimandroid.adverts.data.model.AddToFavoritesRequest
+import com.alibasoglu.ciftlikpazarimandroid.adverts.data.model.GetFavoritesRequest
+import com.alibasoglu.ciftlikpazarimandroid.adverts.data.model.RemoveFavoriteRequest
 import com.alibasoglu.ciftlikpazarimandroid.adverts.domain.Advert
 import okhttp3.ResponseBody
 import retrofit2.Response
@@ -42,4 +45,9 @@ interface AdvertsApi {
     suspend fun removeAdvertFromFavorites(
         @Body removeFavoriteRequest: RemoveFavoriteRequest
     ): Response<User>
+
+    @POST("get-users-favorites")
+    suspend fun getFavoriteAdverts(
+        @Body getFavoritesRequest: GetFavoritesRequest
+    ): Response<List<Advert>>
 }

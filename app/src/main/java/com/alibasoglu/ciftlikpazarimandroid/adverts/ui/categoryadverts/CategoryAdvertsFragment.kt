@@ -37,7 +37,7 @@ class CategoryAdvertsFragment : BaseFragment(R.layout.fragment_category_adverts)
         advertsAdapter.submitData(it)
     }
 
-    private val advertsAdapterListener = object : AdvertsAdapter.CategoryAdvertsAdapterListener {
+    private val advertsAdapterListener = object : AdvertsAdapter.AdvertsAdapterListener {
         override fun onAdvertClick(advert: Advert) {
             navToAdvertDetailsFragment(advert)
         }

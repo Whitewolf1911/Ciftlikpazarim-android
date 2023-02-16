@@ -6,7 +6,7 @@ import com.alibasoglu.ciftlikpazarimandroid.adverts.domain.Advert
 import com.alibasoglu.ciftlikpazarimandroid.utils.list.BaseDiffUtil
 
 class AdvertsAdapter(
-    private val listener: CategoryAdvertsAdapterListener
+    private val listener: AdvertsAdapterListener
 ) : PagingDataAdapter<Advert, AdvertItemViewHolder>(BaseDiffUtil()) {
 
     override fun onBindViewHolder(holder: AdvertItemViewHolder, position: Int) {
@@ -23,7 +23,7 @@ class AdvertsAdapter(
         return AdvertItemViewHolder.create(parent, advertClickItem)
     }
 
-    interface CategoryAdvertsAdapterListener {
+    interface AdvertsAdapterListener {
         fun onAdvertClick(advert: Advert)
     }
 }

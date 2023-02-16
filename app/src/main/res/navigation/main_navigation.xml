@@ -21,7 +21,11 @@
         android:id="@+id/favoritesFragment"
         android:name="com.alibasoglu.ciftlikpazarimandroid.adverts.ui.favorites.FavoritesFragment"
         android:label="FavoritesFragment"
-        tools:layout="@layout/fragment_favorites" />
+        tools:layout="@layout/fragment_favorites" >
+        <action
+            android:id="@+id/action_favoritesFragment_to_advertDetailsFragment"
+            app:destination="@id/advertDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/authFragment"
         android:name="com.alibasoglu.ciftlikpazarimandroid.auth.ui.AuthFragment"

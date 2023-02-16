@@ -24,4 +24,6 @@ interface AdvertsRepository {
     suspend fun addAdvertToFavorites(advertId: String): Flow<Resource<Unit>>
 
     suspend fun removeAdvertFromFavorites(advertId: String): Flow<Resource<Unit>>
+
+    suspend fun getFavoriteAdverts(): Flow<Resource<List<Advert>>>
 }
