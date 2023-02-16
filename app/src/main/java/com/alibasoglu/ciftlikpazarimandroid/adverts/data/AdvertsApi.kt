@@ -32,4 +32,9 @@ interface AdvertsApi {
         @Query("userID") userId: String
     ): Response<User>
 
+    @POST("add-to-favorites")
+    suspend fun addAdvertToFavorites(
+        @Body advertId: FavoritesRequest
+    ): Response<User>
+
 }

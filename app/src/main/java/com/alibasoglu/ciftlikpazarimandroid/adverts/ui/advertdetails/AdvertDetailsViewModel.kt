@@ -40,6 +40,10 @@ class AdvertDetailsViewModel @Inject constructor(
     val advertOwnerState: StateFlow<User>
         get() = _advertOwnerState
 
+    private var _addToFavoritesState = MutableStateFlow<Resource<Unit>>(Resource.Loading(isLoading = false))
+    val addToFavoritesState: StateFlow<Resource<Unit>>
+        get() = _addToFavoritesState
+
     fun getAdvertDetails(): Advert {
         return advert
     }
@@ -59,6 +63,26 @@ class AdvertDetailsViewModel @Inject constructor(
                     }
                     is Resource.Error -> {}
                     is Resource.Loading -> {}
+                }
+            }
+        }
+    }
+
+    fun addAdvertToFavorites() {
+        viewModelScope.launch {
+            advert._id?.let { id ->
+                advertsRepository.addAdvertToFavorites(advertId = id).collectLatest { result ->
+                    when (result) {
+                        is Resource.Success -> {
+                            _addToFavoritesState.value = Resource.Success(data = null)
+                        }
+                        is Resource.Error -> {
+                            _addToFavoritesState.value = Resource.Error("Bir hata oluştu. Daha sonra tekrar deneyiniz.")
+                        }
+                        is Resource.Loading -> {
+                            _addToFavoritesState.value = Resource.Loading(isLoading = result.isLoading)
+                        }
+                    }
                 }
             }
         }

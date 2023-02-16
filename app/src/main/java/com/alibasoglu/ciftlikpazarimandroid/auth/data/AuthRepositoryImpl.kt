@@ -83,7 +83,6 @@ class AuthRepositoryImpl(
                 val userData = getUserInfo()
                 userData?.let { user ->
                     setUserObjectFromModel(user)
-                    checkUpdateDeviceToken()
                     return AuthResult.Authorized()
                 }
                 AuthResult.Unauthorized()
@@ -122,7 +121,7 @@ class AuthRepositoryImpl(
             val request = TokenCheckRequest(id = UserObject.id, token = deviceToken)
             api.checkUpdateDeviceToken(request = request, authToken = authToken)
         } catch (e: Exception) {
-            Log.d("exception", " Exception occurred during token check/update request")
+            Log.d("exception", " Exception occurred during token check/update request $e")
         }
     }
 

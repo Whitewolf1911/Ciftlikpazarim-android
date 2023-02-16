@@ -6,6 +6,7 @@ import com.alibasoglu.ciftlikpazarimandroid.User
 import com.alibasoglu.ciftlikpazarimandroid.adverts.data.pagingsource.AdvertsPagingSource
 import com.alibasoglu.ciftlikpazarimandroid.adverts.domain.Advert
 import com.alibasoglu.ciftlikpazarimandroid.adverts.domain.AdvertsRepository
+import com.alibasoglu.ciftlikpazarimandroid.core.UserObject
 import com.alibasoglu.ciftlikpazarimandroid.utils.Resource
 import java.io.IOException
 import kotlinx.coroutines.flow.Flow
@@ -72,6 +73,29 @@ class AdvertsRepositoryImpl(
             }
             response?.let {
                 emit(Resource.Success(data = response.body()))
+                emit(Resource.Loading(isLoading = false))
+            }
+        }
+    }
+
+    override suspend fun addAdvertToFavorites(advertId: String): Flow<Resource<Unit>> {
+        return flow {
+            emit(Resource.Loading(isLoading = true))
+            val result = try {
+                val response = api.addAdvertToFavorites(FavoritesRequest(advertId = advertId))
+                response.body()?.let { userResponse ->
+                    UserObject.favorites = userResponse.favorites
+                }
+                response
+            } catch (e: HttpException) {
+                emit(Resource.Error(message = "Bir hata oluştu"))
+                null
+            } catch (e: IOException) {
+                emit(Resource.Error(message = "Bir hata oluştu. İnternet bağlantınızı kontrol edin."))
+                null
+            }
+            result?.let {
+                emit(Resource.Success(data = null))
                 emit(Resource.Loading(isLoading = false))
             }
         }

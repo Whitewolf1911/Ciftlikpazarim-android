@@ -14,8 +14,10 @@ import com.alibasoglu.ciftlikpazarimandroid.core.fragment.BaseFragment
 import com.alibasoglu.ciftlikpazarimandroid.core.fragment.FragmentConfiguration
 import com.alibasoglu.ciftlikpazarimandroid.core.fragment.ToolbarConfiguration
 import com.alibasoglu.ciftlikpazarimandroid.databinding.FragmentAdvertDetailsBinding
+import com.alibasoglu.ciftlikpazarimandroid.utils.Resource
 import com.alibasoglu.ciftlikpazarimandroid.utils.decodeBase64Image
 import com.alibasoglu.ciftlikpazarimandroid.utils.lifecycle.observe
+import com.alibasoglu.ciftlikpazarimandroid.utils.showToast
 import com.alibasoglu.ciftlikpazarimandroid.utils.viewbinding.viewBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
@@ -78,6 +80,9 @@ class AdvertDetailsFragment : BaseFragment(R.layout.fragment_advert_details) {
                 navToChatScreen()
             }
 
+            addToFavoritesButton.setOnClickListener {
+                advertDetailsViewModel.addAdvertToFavorites()
+            }
         }
     }
 
@@ -94,6 +99,25 @@ class AdvertDetailsFragment : BaseFragment(R.layout.fragment_advert_details) {
                     advertOwnerTextView.text = advertOwner.name
                     phoneTextView.text =
                         PhoneNumberUtils.formatNumber(advertOwner.phoneNumber, Locale.getDefault().country)
+                }
+            }
+        }
+        viewLifecycleOwner.observe {
+            advertDetailsViewModel.addToFavoritesState.collectLatest { result ->
+                when (result) {
+                    is Resource.Success -> {
+                        context?.showToast(getString(R.string.added_to_favorites))
+                        //TODO show remove from the favorites button
+                    }
+                    is Resource.Error -> {
+                        result.message?.let {
+                            context?.showToast(it)
+                        }
+                    }
+                    is Resource.Loading -> {
+                        //TODO show progress bar inside the button
+                    }
+
                 }
             }
         }

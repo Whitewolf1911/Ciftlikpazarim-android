@@ -26,6 +26,7 @@ class AuthViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             authenticate()
+            checkUpdateDeviceToken()
         }
     }
 
@@ -84,6 +85,10 @@ class AuthViewModel @Inject constructor(
         if (result is AuthResult.Authorized) {
             _authStateFlow.value = AuthResult.Authorized()
         }
+    }
+
+    private suspend fun checkUpdateDeviceToken() {
+        authRepository.checkUpdateDeviceToken()
     }
 
 }

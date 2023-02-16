@@ -21,4 +21,6 @@ interface AdvertsRepository {
 
     suspend fun getUserById(userId: String): Flow<Resource<User>>
 
+    suspend fun addAdvertToFavorites(advertId: String): Flow<Resource<Unit>>
+
 }
