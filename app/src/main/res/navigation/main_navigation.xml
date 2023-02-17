@@ -106,4 +106,9 @@
             android:name="id"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/userFragment"
+        android:name="com.alibasoglu.ciftlikpazarimandroid.user.ui.UserFragment"
+        android:label="fragment_user"
+        tools:layout="@layout/fragment_user" />
 </navigation>

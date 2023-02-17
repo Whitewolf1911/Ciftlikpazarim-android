@@ -49,6 +49,11 @@
     <string name="remove_from_favorites">Favorilerden Kaldır</string>
     <string name="removed_from_favorites">İlan favorilerden kaldırıldı.</string>
     <string name="your_favorites_here">Favorileriniz burada gözükür</string>
+    <string name="my_account">Hesabım</string>
+    <string name="email_colon">Email :</string>
+    <string name="my_adverts">İlanlarım</string>
+    <string name="update_my_info">Bilgilerimi Güncelle</string>
+    <string name="log_out">Çıkış Yap</string>
 
 
     <string-array name="categories">

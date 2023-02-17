@@ -18,7 +18,7 @@
         android:icon="@drawable/ic_messages"
         android:title="@string/messages" />
     <item
-        android:id="@+id/profileFragment"
+        android:id="@+id/userFragment"
         android:icon="@drawable/ic_profile"
         android:title="@string/profile" />
 
