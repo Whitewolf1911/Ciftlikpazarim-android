@@ -55,6 +55,10 @@
     <string name="update_my_info">Bilgilerimi Güncelle</string>
     <string name="log_out">Çıkış Yap</string>
     <string name="save">Kaydet</string>
+    <string name="enter_new_password">Yeni şifrenizi giriniz</string>
+    <string name="enter_password_again">Şifreyi tekrar giriniz</string>
+    <string name="change_my_password">Şifremi değiştir</string>
+    <string name="password_requirements">-Boşluk bırakmayınız.\n-En az 8 karakter giriniz.</string>
 
 
     <string-array name="categories">
