@@ -54,6 +54,7 @@
     <string name="my_adverts">İlanlarım</string>
     <string name="update_my_info">Bilgilerimi Güncelle</string>
     <string name="log_out">Çıkış Yap</string>
+    <string name="save">Kaydet</string>
 
 
     <string-array name="categories">
