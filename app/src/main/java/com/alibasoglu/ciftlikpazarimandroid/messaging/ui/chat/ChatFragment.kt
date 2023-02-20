@@ -1,5 +1,9 @@
 package com.alibasoglu.ciftlikpazarimandroid.messaging.ui.chat
 
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.view.View
 import androidx.compose.foundation.background
@@ -45,9 +49,26 @@ class ChatFragment : BaseFragment(R.layout.fragment_chat) {
 
     private val chatViewModel by viewModels<ChatViewModel>()
 
+    private val broadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(p0: Context?, p1: Intent?) {
+            chatViewModel.getMessages()
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initUi()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val filter = IntentFilter("msgReceived")
+        activity?.registerReceiver(broadcastReceiver,filter)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        activity?.unregisterReceiver(broadcastReceiver)
     }
 
     private fun initUi() {

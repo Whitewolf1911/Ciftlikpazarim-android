@@ -29,10 +29,10 @@ class ChatViewModel @Inject constructor(
     var state by mutableStateOf(ChatState())
 
     init {
-        getMessages(otherUserId)
+        getMessages()
     }
 
-    fun getMessages(otherUserId: String) {
+    fun getMessages() {
         viewModelScope.launch {
             messagesRepository.getMessages(otherUserId).collectLatest { result ->
                 when (result) {
