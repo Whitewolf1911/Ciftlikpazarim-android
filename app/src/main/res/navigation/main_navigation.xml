@@ -110,5 +110,13 @@
         android:id="@+id/userFragment"
         android:name="com.alibasoglu.ciftlikpazarimandroid.user.ui.UserFragment"
         android:label="fragment_user"
-        tools:layout="@layout/fragment_user" />
+        tools:layout="@layout/fragment_user" >
+        <action
+            android:id="@+id/action_userFragment_to_updateMyInfoFragment"
+            app:destination="@id/updateMyInfoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/updateMyInfoFragment"
+        android:name="com.alibasoglu.ciftlikpazarimandroid.user.ui.updateinfo.UpdateMyInfoFragment"
+        android:label="UpdateMyInfoFragment" />
 </navigation>

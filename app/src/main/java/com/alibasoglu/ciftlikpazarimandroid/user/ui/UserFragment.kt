@@ -12,7 +12,7 @@ import com.alibasoglu.ciftlikpazarimandroid.utils.viewbinding.viewBinding
 
 class UserFragment() : BaseFragment(R.layout.fragment_user) {
 
-    val toolbarConfiguration = ToolbarConfiguration(titleResId = R.string.my_account)
+    private val toolbarConfiguration = ToolbarConfiguration(titleResId = R.string.my_account)
     override val fragmentConfiguration = FragmentConfiguration(toolbarConfiguration)
 
     private val binding by viewBinding(FragmentUserBinding::bind)
@@ -24,6 +24,7 @@ class UserFragment() : BaseFragment(R.layout.fragment_user) {
     }
 
     private fun initUI() {
+        showBottomNavBar()
         with(binding) {
             with(UserObject) {
                 nameTextView.text = name
@@ -35,12 +36,21 @@ class UserFragment() : BaseFragment(R.layout.fragment_user) {
                 //TODO nav to myAdverts screen
             }
             updateMyInfoButton.setOnClickListener {
-                //TODO nav to Update my info screen
+                navToUpdateMyInfoFragment()
             }
             logoutButton.setOnClickListener {
                 //TODO logout
             }
         }
     }
+
+    private fun navToMyAdvertsFragment() {
+        //TODO
+    }
+
+    private fun navToUpdateMyInfoFragment() {
+        nav(UserFragmentDirections.actionUserFragmentToUpdateMyInfoFragment())
+    }
+
 
 }
