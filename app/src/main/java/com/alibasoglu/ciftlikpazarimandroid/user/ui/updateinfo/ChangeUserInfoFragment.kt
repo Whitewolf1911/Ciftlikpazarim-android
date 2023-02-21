@@ -8,6 +8,8 @@ import com.alibasoglu.ciftlikpazarimandroid.core.UserObject
 import com.alibasoglu.ciftlikpazarimandroid.core.fragment.BaseFragment
 import com.alibasoglu.ciftlikpazarimandroid.core.fragment.FragmentConfiguration
 import com.alibasoglu.ciftlikpazarimandroid.databinding.FragmentChangeUserInfoBinding
+import com.alibasoglu.ciftlikpazarimandroid.utils.ProgressDialog
+import com.alibasoglu.ciftlikpazarimandroid.utils.lifecycle.observe
 import com.alibasoglu.ciftlikpazarimandroid.utils.viewbinding.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -19,12 +21,16 @@ class ChangeUserInfoFragment : BaseFragment(R.layout.fragment_change_user_info) 
 
     private val viewModel by viewModels<ChangeUserInfoViewModel>()
 
+    var progressDialog: ProgressDialog? = null
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initUI()
+        initObservers()
     }
 
     private fun initUI() {
+        progressDialog = activity?.let { ProgressDialog(activity = it) }
         with(binding) {
             with(UserObject) {
                 nameEditText.setText(name)
@@ -40,6 +46,12 @@ class ChangeUserInfoFragment : BaseFragment(R.layout.fragment_change_user_info) 
                     email = emailEditText.text.toString()
                 )
             }
+        }
+    }
+
+    private fun initObservers() {
+        viewLifecycleOwner.observe {
+
         }
     }
 }

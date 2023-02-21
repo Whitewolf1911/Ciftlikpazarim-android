@@ -112,6 +112,9 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation 'com.google.firebase:firebase-messaging-ktx:23.0.3'
 
+    //Lottie
+    implementation "com.airbnb.android:lottie:6.0.0"
+
 
     //Test
     testImplementation 'junit:junit:4.13.2'
