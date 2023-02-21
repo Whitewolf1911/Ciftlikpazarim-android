@@ -2,17 +2,22 @@ package com.alibasoglu.ciftlikpazarimandroid.user.ui.updateinfo
 
 import android.os.Bundle
 import android.view.View
+import androidx.fragment.app.viewModels
 import com.alibasoglu.ciftlikpazarimandroid.R
 import com.alibasoglu.ciftlikpazarimandroid.core.UserObject
 import com.alibasoglu.ciftlikpazarimandroid.core.fragment.BaseFragment
 import com.alibasoglu.ciftlikpazarimandroid.core.fragment.FragmentConfiguration
 import com.alibasoglu.ciftlikpazarimandroid.databinding.FragmentChangeUserInfoBinding
 import com.alibasoglu.ciftlikpazarimandroid.utils.viewbinding.viewBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ChangeUserInfoFragment : BaseFragment(R.layout.fragment_change_user_info) {
     override val fragmentConfiguration = FragmentConfiguration()
 
     private val binding by viewBinding(FragmentChangeUserInfoBinding::bind)
+
+    private val viewModel by viewModels<ChangeUserInfoViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -21,14 +26,19 @@ class ChangeUserInfoFragment : BaseFragment(R.layout.fragment_change_user_info) 
 
     private fun initUI() {
         with(binding) {
-            with(UserObject){
+            with(UserObject) {
                 nameEditText.setText(name)
                 phoneEditText.setText(phoneNumber)
                 emailEditText.setText(email)
             }
 
             submitButton.setOnClickListener {
-                //TODO save the new info
+                //TODO add validation
+                viewModel.updateUserInfo(
+                    name = nameEditText.text.toString(),
+                    phoneNumber = phoneEditText.text.toString(),
+                    email = emailEditText.text.toString()
+                )
             }
         }
     }

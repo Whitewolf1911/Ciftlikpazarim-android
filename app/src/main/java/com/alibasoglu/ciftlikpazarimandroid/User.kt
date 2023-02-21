@@ -6,7 +6,7 @@ data class User(
     val email: String,
     val phoneNumber: String,
     val type: String,
-    val token: String,
+    val token: String?,
     val deviceToken: String,
     val favorites: List<String>,
     val contacts: List<String>,

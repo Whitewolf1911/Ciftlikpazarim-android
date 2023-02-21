@@ -22,7 +22,7 @@ fun setUserObjectFromModel(user: User) {
         UserObject.email = email
         UserObject.phoneNumber = phoneNumber
         UserObject.type = type
-        UserObject.token = token
+        UserObject.token = token ?: ""
         UserObject.deviceToken = deviceToken
         UserObject.favorites = favorites
         UserObject.contacts = contacts
