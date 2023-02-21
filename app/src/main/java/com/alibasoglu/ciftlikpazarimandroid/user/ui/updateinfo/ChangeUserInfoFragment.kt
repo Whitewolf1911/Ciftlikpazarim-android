@@ -9,9 +9,12 @@ import com.alibasoglu.ciftlikpazarimandroid.core.fragment.BaseFragment
 import com.alibasoglu.ciftlikpazarimandroid.core.fragment.FragmentConfiguration
 import com.alibasoglu.ciftlikpazarimandroid.databinding.FragmentChangeUserInfoBinding
 import com.alibasoglu.ciftlikpazarimandroid.utils.ProgressDialog
+import com.alibasoglu.ciftlikpazarimandroid.utils.Resource
 import com.alibasoglu.ciftlikpazarimandroid.utils.lifecycle.observe
+import com.alibasoglu.ciftlikpazarimandroid.utils.showToast
 import com.alibasoglu.ciftlikpazarimandroid.utils.viewbinding.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 
 @AndroidEntryPoint
 class ChangeUserInfoFragment : BaseFragment(R.layout.fragment_change_user_info) {
@@ -51,7 +54,25 @@ class ChangeUserInfoFragment : BaseFragment(R.layout.fragment_change_user_info) 
 
     private fun initObservers() {
         viewLifecycleOwner.observe {
-
+            viewModel.updateUserInfoState.collectLatest { result ->
+                when (result) {
+                    is Resource.Success -> {
+                        progressDialog?.dismissDialog()
+                        context?.showToast("Bilgileriniz güncellendi.")
+                    }
+                    is Resource.Error -> {
+                        progressDialog?.dismissDialog()
+                        context?.showToast(result.message ?: "İşlem Başarısız")
+                    }
+                    is Resource.Loading -> {
+                        if (result.isLoading) {
+                            progressDialog?.startDialog()
+                        }else{
+                            progressDialog?.dismissDialog()
+                        }
+                    }
+                }
+            }
         }
     }
 }

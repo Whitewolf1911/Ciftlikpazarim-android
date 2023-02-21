@@ -14,7 +14,7 @@ class ProgressDialog constructor(private val activity: Activity) {
         dialog = mBuilder.show()
         dialog?.window?.setBackgroundDrawable(ContextCompat.getDrawable(activity, R.drawable.bg_transparent_view))
         dialog?.setCanceledOnTouchOutside(false)
-        dialog?.setCancelable(false)
+        dialog?.setCancelable(true)
     }
     fun dismissDialog() {
         if(dialog != null)

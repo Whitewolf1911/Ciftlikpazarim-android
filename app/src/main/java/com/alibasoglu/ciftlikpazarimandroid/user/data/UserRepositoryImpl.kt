@@ -26,9 +26,13 @@ class UserRepositoryImpl(
                 emit(Resource.Error(message = "Bir hata oluştu. İnternet bağlantınızı kontrol edin."))
                 null
             }
-            response?.let {
-                emit(Resource.Success(it.body()))
-                emit(Resource.Loading(isLoading = false))
+            if (response != null && !response.isSuccessful) {
+                emit(Resource.Error(message = "Bir hata oluştu"))
+            } else {
+                response?.body().let {
+                    emit(Resource.Success(it))
+                    emit(Resource.Loading(isLoading = false))
+                }
             }
         }
     }
